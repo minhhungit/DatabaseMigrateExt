@@ -18,7 +18,6 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 ```
 
 ## Migration Scripts
-Sample structure:
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/sample%20migration%20structure.png" />
 
 ```c#
