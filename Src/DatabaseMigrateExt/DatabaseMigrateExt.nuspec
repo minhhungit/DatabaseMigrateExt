@@ -2,13 +2,16 @@
 <package >
   <metadata>
     <id>DatabaseMigrateExt</id>
-    <version>$version$</version>
+    <version>1.0.0.1</version>
     <title>$title$</title>
     <authors>Hung Vo</authors>
-    <owners>Hung Vo</owners>    
+    <owners>Hung Vo</owners>
+    <licenseUrl>http://opensource.org/licenses/MS-PL</licenseUrl>
+    <projectUrl>https://github.com/minhhungit/DatabaseMigrateExt</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provide a new way to work with mssql database version</description>
-    <releaseNotes>First release</releaseNotes>
+    <releaseNotes>Fix migration namespace</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>fluent migrator database version</tags>
     <dependencies>
