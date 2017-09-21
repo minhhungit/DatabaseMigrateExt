@@ -20,6 +20,7 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 ## Migration Scripts
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/sample%20migration%20structure.png" />
 
+Sample script:
 ```c#
 [ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 9, day: 21, hour: 19, minute: 40, second: 01)]
 public class SqlStructure_20170921_194001_inital_tables : Migration
