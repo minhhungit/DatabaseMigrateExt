@@ -18,6 +18,8 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 <add key="mgr:InventoryDb_ConnString" value="Data Source=JINPC\MSSQL2014;Initial Catalog=SecondDb;User ID=fake;Password=fake;Connection Timeout=6000;"/>
 ```
 
+## Migration Scripts
+<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/sample%20migration%20structure.png" />
 
 ## Run
 ```c#
