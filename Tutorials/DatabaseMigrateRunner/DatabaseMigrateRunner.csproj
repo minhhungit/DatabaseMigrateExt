@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\InventoryDb\SqlDataAndStructure\SqlStructure_20170922_020801_inital_tables.cs" />
     <Compile Include="Migrations\MovieStore\SqlDataAndStructure\SqlStructure_20170921_194001_inital_tables.cs" />
     <Compile Include="Migrations\MovieStore\SqlFunction\SqlFunc_20170920_083001_inital_functions.cs" />
     <Compile Include="Migrations\MovieStore\SqlStored\DbOne_20170807_140103_create_stored.cs" />
@@ -66,6 +67,10 @@
       <Project>{5573E2B7-A629-47B0-AD6A-39233CC3C289}</Project>
       <Name>DatabaseMigrateExt</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\InventoryDb\SqlFunction\" />
+    <Folder Include="Migrations\InventoryDb\SqlStored\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
