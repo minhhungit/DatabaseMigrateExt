@@ -1,21 +1,24 @@
 ﻿using System.Configuration;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace DatabaseMigrateExt
 {
     public class MigrateDatabaseItem
     {
-        public static MigrateDatabaseItem CreateDatabaseItem(string databaseKey)
+        public static MigrateDatabaseItem CreateDatabaseItem(Assembly migrationAssembly, string databaseKey)
         {
             return new MigrateDatabaseItem
             {
-                DatabaseKey = databaseKey
+                DatabaseKey = databaseKey,
+                MigrationAssembly = migrationAssembly
             };
         }
 
         public string DatabaseKey { get; set; }
         public string RootNamespace => ConfigurationManager.AppSettings[$"mgr:RootNamespace"];
         public string ConnectionString => ConfigurationManager.AppSettings[$"mgr:{DatabaseKey}_ConnString"];
+        public Assembly MigrationAssembly { get; set; }
 
         public int ConnectionTimeout
         {

@@ -34,7 +34,7 @@ namespace DatabaseMigrateExt
             var migrationDatabaseItems = new List<MigrateDatabaseItem>();
             foreach (var databaseName in setting.DatabaseKeys)
             {
-                migrationDatabaseItems.Add(MigrateDatabaseItem.CreateDatabaseItem(databaseName));
+                migrationDatabaseItems.Add(MigrateDatabaseItem.CreateDatabaseItem(setting.MigrationAssembly, databaseName));
             }
 
             foreach (var item in migrationDatabaseItems)
@@ -86,7 +86,7 @@ namespace DatabaseMigrateExt
 
             using (var processor = factory.Create(dbItem.ConnectionString, announcer, options))
             {
-                return new MigrationRunner(System.Reflection.Assembly.GetExecutingAssembly(), runnerCtx, processor);
+                return new MigrationRunner(dbItem.MigrationAssembly, runnerCtx, processor);
             }
         }
     }

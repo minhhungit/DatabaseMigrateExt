@@ -3,3 +3,6 @@ packages
 /Src/DatabaseMigrateExt/obj/Debug
 /Src/DatabaseMigrateExt/DatabaseMigrateExt.1.0.0.nupkg
 /Src/DatabaseMigrateExt/DatabaseMigrateExt.csproj.user
+/Src/DatabaseMigrateExt/bin/Debug
+/Tutorials/DatabaseMigrateRunner/bin/Debug
+/Tutorials/DatabaseMigrateRunner/obj/Debug

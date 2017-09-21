@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace DatabaseMigrateExt
 {
@@ -14,6 +15,6 @@ namespace DatabaseMigrateExt
 
         public List<string> DatabaseKeys { get; set; }
         public List<DatabaseScriptType> AvailableLevels { get; set; }
-
+        public Assembly MigrationAssembly { get; set; }
     }
 }

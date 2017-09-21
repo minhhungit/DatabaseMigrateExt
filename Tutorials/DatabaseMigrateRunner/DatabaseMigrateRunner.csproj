@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5573E2B7-A629-47B0-AD6A-39233CC3C289}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DatabaseMigrateExt</RootNamespace>
-    <AssemblyName>DatabaseMigrateExt</AssemblyName>
+    <ProjectGuid>{69079B8B-3D35-499E-AC67-F8F0D75FD58B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DatabaseMigrateRunner</RootNamespace>
+    <AssemblyName>DatabaseMigrateRunner</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,9 +34,6 @@
   <ItemGroup>
     <Reference Include="FluentMigrator, Version=1.6.2.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentMigrator.1.6.2\lib\40\FluentMigrator.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner, Version=1.6.2.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentMigrator.Runner.1.6.2\lib\40\FluentMigrator.Runner.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -47,20 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\ExtMigrationAttribute.cs" />
-    <Compile Include="DatabaseScriptType.cs" />
-    <Compile Include="MigrateDatabaseItem.cs" />
-    <Compile Include="MigrationManager.cs" />
-    <Compile Include="MigrationSetting.cs" />
-    <Compile Include="MigrationUtils.cs" />
+    <Compile Include="Migrations\MovieStore\SqlDataAndStructure\SqlStructure_20170921_194001_inital_tables.cs" />
+    <Compile Include="Migrations\MovieStore\SqlFunction\SqlFunc_20170920_083001_inital_functions.cs" />
+    <Compile Include="Migrations\MovieStore\SqlStored\DbOne_20170807_140103_create_stored.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DatabaseMigrateExt.nuspec" />
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resouces\favicon.ico" />
+    <EmbeddedResource Include="Migrations\MovieStore\SqlFunction\%40RefScript\dbo.fnRemoveNonAlphaCharacters.sql" />
+    <EmbeddedResource Include="Migrations\MovieStore\SqlFunction\%40RefScript\dbo.fnSplit.sql" />
+    <EmbeddedResource Include="Migrations\MovieStore\SqlStored\%40RefScript\dbo.GetMovieById.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\DatabaseMigrateExt\DatabaseMigrateExt.csproj">
+      <Project>{5573E2B7-A629-47B0-AD6A-39233CC3C289}</Project>
+      <Name>DatabaseMigrateExt</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
