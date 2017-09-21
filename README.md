@@ -1,14 +1,17 @@
 # DatabaseMigrateExt
 A new way, new rule to work with MSSQL database version use fluent migrator
-- https://minhhungit.github.io/DatabaseMigrateExt 
-- https://github.com/minhhungit/DatabaseMigrateExt
+- [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
+- [https://github.com/minhhungit/DatabaseMigrateExt](https://github.com/minhhungit/DatabaseMigrateExt)
+
 
 ## Installation
 >Install-Package DatabaseMigrateExt
 
+
 ## Sample Project
 
 See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials/DatabaseMigrateRunner) at [https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials/DatabaseMigrateRunner](https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials/DatabaseMigrateRunner)
+
 
 ## Config
 ```xml
@@ -18,6 +21,7 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 <add key="mgr:MovieStore_ConnString" value="Data Source=JINPC\MSSQL2014;Initial Catalog=FirstDb;User ID=u;Password=p;Connection Timeout=6000;"/>
 <add key="mgr:InventoryDb_ConnString" value="Data Source=JINPC\MSSQL2014;Initial Catalog=SecondDb;User ID=u;Password=p;Connection Timeout=6000;"/>
 ```
+
 
 ## Migration Scripts
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/sample%20migration%20structure.png" />
@@ -33,6 +37,7 @@ public class SqlStructure_20170921_194001_inital_tables : Migration
     }
 }
 ```
+
 
 ## Run
 ```c#
