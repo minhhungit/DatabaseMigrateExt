@@ -1,5 +1,7 @@
 # DatabaseMigrateExt
 A new way, new rule to work with MSSQL database version use fluent migrator
+- https://minhhungit.github.io/DatabaseMigrateExt 
+- https://github.com/minhhungit/DatabaseMigrateExt
 
 ## Installation
 >Install-Package DatabaseMigrateExt
