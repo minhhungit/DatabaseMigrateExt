@@ -1,2 +1,5 @@
 packages
 .vs
+/Src/DatabaseMigrateExt/obj/Debug
+/Src/DatabaseMigrateExt/DatabaseMigrateExt.1.0.0.nupkg
+/Src/DatabaseMigrateExt/DatabaseMigrateExt.csproj.user
