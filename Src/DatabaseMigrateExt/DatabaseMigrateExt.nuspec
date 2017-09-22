@@ -2,18 +2,18 @@
 <package >
   <metadata>
     <id>DatabaseMigrateExt</id>
-    <version>1.0.0.2</version>
+    <version>1.0.0.4</version>
     <title>$title$</title>
     <authors>Hung Vo</authors>
     <owners>Hung Vo</owners>
     <licenseUrl>http://opensource.org/licenses/MS-PL</licenseUrl>
     <projectUrl>https://github.com/minhhungit/DatabaseMigrateExt</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.ico</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/icon/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provide a new way to work with mssql database version</description>
-    <releaseNotes>Fix migration namespace</releaseNotes>
+    <releaseNotes>Remove resource folder</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>fluent migrator database version</tags>
+    <tags>fluentmigrator magration fluent migrator database version schema mssql migrate</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
         <dependency id="FluentMigrator" version="1.6.2" />
