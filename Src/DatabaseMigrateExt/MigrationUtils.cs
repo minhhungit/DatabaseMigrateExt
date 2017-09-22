@@ -9,7 +9,6 @@ namespace DatabaseMigrateExt
         {
             var appContext = (MigrateDatabaseItem)migration.ApplicationContext;
 
-            var assembly = Assembly.GetExecutingAssembly();
             var embeddedScriptNamespace = $"{appContext.SqlArchitectureRefScriptNamespace}.{scriptFileName.Trim()}";
             migration.Execute.EmbeddedScript(embeddedScriptNamespace);
         }
