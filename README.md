@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.ico" width="32"> DatabaseMigrateExt <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" />
+# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.ico" width="32"> DatabaseMigrateExt <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" /> <a href="https://www.nuget.org/packages/DatabaseMigrateExt/"><img src="https://img.shields.io/nuget/v/DatabaseMigrateExt.svg?style=flat" /></a>
 
 A new way, new rule to work with MSSQL database version use fluent migrator
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
