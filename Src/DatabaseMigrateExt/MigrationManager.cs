@@ -51,7 +51,7 @@ namespace DatabaseMigrateExt
             {
                 if (!script.Key.ToString().StartsWith(((int)scriptType).ToString()) || script.Key.ToString().Length < 18)
                 {
-                    throw new Exception($"You used wrong migration attribute or you put migration attribute wrong place: {scriptType}. {Environment.NewLine}{script.Value.ToString()}");
+                    throw new ArgumentException($"You used wrong migration attribute or you put migration attribute wrong place: {scriptType}. {Environment.NewLine}{script.Value.ToString()}");
                 }
             }
             runner.MigrateUp(true);
