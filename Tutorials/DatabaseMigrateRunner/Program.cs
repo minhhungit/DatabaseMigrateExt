@@ -1,6 +1,7 @@
 ﻿using DatabaseMigrateExt;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 
 namespace DatabaseMigrateRunner
 {
@@ -8,20 +9,17 @@ namespace DatabaseMigrateRunner
     {
         static void Main(string[] args)
         {
-            var databaseKeys = new List<string> { "MovieStore", "InventoryDb" };
-
-            // OR load values from AppSetting
-            // databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
+            var databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
 
             var setting = new MigrationSetting
             {
                 DatabaseKeys = databaseKeys
             };
 
-            Console.WriteLine("Start...");
+            // Start
             MigrationManager.Instance.Run(setting);
-            Console.WriteLine("Completed!");
 
+            //Completed!
             Console.ReadKey();
         }
     }
