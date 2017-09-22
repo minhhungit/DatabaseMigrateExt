@@ -10,9 +10,9 @@ namespace DatabaseMigrateExt
 {
     public class MigrationManager
     {
-        private static readonly Lazy<MigrationManager> lazy = new Lazy<MigrationManager>(() => new MigrationManager());
+        private static readonly Lazy<MigrationManager> Lazy = new Lazy<MigrationManager>(() => new MigrationManager());
 
-        public static MigrationManager Instance { get { return lazy.Value; } }
+        public static MigrationManager Instance => Lazy.Value;
 
         private MigrationManager()
         {
@@ -51,7 +51,7 @@ namespace DatabaseMigrateExt
             {
                 if (!script.Key.ToString().StartsWith(((int)scriptType).ToString()) || script.Key.ToString().Length < 18)
                 {
-                    throw new ArgumentException($"You used wrong migration attribute or you put migration attribute wrong place: {scriptType}. {Environment.NewLine}{script.Value.ToString()}");
+                    throw new ArgumentException($"You used wrong migration attribute or you put migration attribute wrong place: {scriptType}. {Environment.NewLine}{script.Value}");
                 }
             }
             runner.MigrateUp(true);
@@ -78,7 +78,7 @@ namespace DatabaseMigrateExt
                     runnerCtx.Namespace = dbItem.SqlStoredChangeScriptNamespace;
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException(nameof(scriptType), scriptType, null);
             }
 
             var options = new ProcessorOptions { PreviewOnly = false, Timeout = dbItem.ConnectionTimeout };

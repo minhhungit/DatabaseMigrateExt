@@ -16,7 +16,7 @@ namespace DatabaseMigrateExt
         }
 
         public string DatabaseKey { get; set; }
-        public string RootNamespace => ConfigurationManager.AppSettings[$"mgr:RootNamespace"];
+        public string RootNamespace => ConfigurationManager.AppSettings["mgr:RootNamespace"];
         public string ConnectionString => ConfigurationManager.AppSettings[$"mgr:{DatabaseKey}_ConnString"];
         public Assembly MigrationAssembly { get; set; }
 
@@ -24,7 +24,7 @@ namespace DatabaseMigrateExt
         {
             get
             {
-                var builder = new SqlConnectionStringBuilder(this.ConnectionString);
+                var builder = new SqlConnectionStringBuilder(ConnectionString);
                 return builder.ConnectTimeout;
             }
         }

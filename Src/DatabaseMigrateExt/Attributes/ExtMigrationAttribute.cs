@@ -12,7 +12,7 @@ namespace DatabaseMigrateExt.Attributes
         public ExtMigrationAttribute(DatabaseScriptType scriptType, int year, int month, int day, int hour, int minute, int second, string author)
            : base(CalculateValue(scriptType, year, month, day, hour, minute, second))
         {
-            this.Author = author;
+            Author = author;
         }
 
         public string Author { get; private set; }

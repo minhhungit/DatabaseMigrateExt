@@ -1,5 +1,4 @@
 ﻿using FluentMigrator;
-using System.Reflection;
 
 namespace DatabaseMigrateExt
 {
@@ -8,7 +7,6 @@ namespace DatabaseMigrateExt
         public static void ExecuteSqlStructure(this Migration migration, string scriptFileName)
         {
             var appContext = (MigrateDatabaseItem)migration.ApplicationContext;
-
             var embeddedScriptNamespace = $"{appContext.SqlArchitectureRefScriptNamespace}.{scriptFileName.Trim()}";
             migration.Execute.EmbeddedScript(embeddedScriptNamespace);
         }
@@ -16,7 +14,6 @@ namespace DatabaseMigrateExt
         public static void ExecuteStoredProcedure(this Migration migration, string scriptFileName)
         {
             var appContext = (MigrateDatabaseItem)migration.ApplicationContext;
-
             var embeddedScriptNamespace = $"{appContext.SqlStoredRefScriptNamespace}.{scriptFileName.Trim()}";
             migration.Execute.EmbeddedScript(embeddedScriptNamespace);
         }
