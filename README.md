@@ -1,5 +1,7 @@
 # <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.ico" width="32"> DatabaseMigrateExt <a href="https://ci.appveyor.com/project/minhhungit/DatabaseMigrateExt"> <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" /></a> <a href="https://www.nuget.org/packages/DatabaseMigrateExt/"><img src="https://img.shields.io/nuget/v/DatabaseMigrateExt.svg?style=flat" /></a> [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1b3c86714594b6894bb9382c3f85f33)](https://www.codacy.com/app/it.minhhung/DatabaseMigrateExt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minhhungit/DatabaseMigrateExt&amp;utm_campaign=Badge_Grade)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1b3c86714594b6894bb9382c3f85f33)](https://www.codacy.com/app/it.minhhung/DatabaseMigrateExt?utm_source=github.com&utm_medium=referral&utm_content=minhhungit/DatabaseMigrateExt&utm_campaign=badger)
+
 A new way, new rule to work with MSSQL database version use fluent migrator
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
 - [https://github.com/minhhungit/DatabaseMigrateExt](https://github.com/minhhungit/DatabaseMigrateExt)
