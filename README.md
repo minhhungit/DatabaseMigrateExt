@@ -1,4 +1,5 @@
-# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.svg" style="width: 30px; height: 30px;" /> DatabaseMigrateExt <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" />
+# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.ico" width="32"> DatabaseMigrateExt <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" />
+
 A new way, new rule to work with MSSQL database version use fluent migrator
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
 - [https://github.com/minhhungit/DatabaseMigrateExt](https://github.com/minhhungit/DatabaseMigrateExt)
