@@ -8,7 +8,7 @@
     <owners>Hung Vo</owners>
     <licenseUrl>http://opensource.org/licenses/MS-PL</licenseUrl>
     <projectUrl>https://github.com/minhhungit/DatabaseMigrateExt</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/icon/favicon.ico</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Icon/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provide a new way to work with mssql database version</description>
     <releaseNotes>Remove resource folder</releaseNotes>
