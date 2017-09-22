@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.ico" width="32" /> DatabaseMigrateExt <a href="https://ci.appveyor.com/project/minhhungit/DatabaseMigrateExt"> <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" /></a> <a href="https://www.nuget.org/packages/DatabaseMigrateExt/"><img src="https://img.shields.io/nuget/v/DatabaseMigrateExt.svg?style=flat" /></a> [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1b3c86714594b6894bb9382c3f85f33)](https://www.codacy.com/app/it.minhhung/DatabaseMigrateExt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minhhungit/DatabaseMigrateExt&amp;utm_campaign=Badge_Grade)
+# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/icon/favicon.ico" width="32" /> DatabaseMigrateExt <a href="https://ci.appveyor.com/project/minhhungit/DatabaseMigrateExt"> <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" /></a> <a href="https://www.nuget.org/packages/DatabaseMigrateExt/"><img src="https://img.shields.io/nuget/v/DatabaseMigrateExt.svg?style=flat" /></a> [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1b3c86714594b6894bb9382c3f85f33)](https://www.codacy.com/app/it.minhhung/DatabaseMigrateExt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minhhungit/DatabaseMigrateExt&amp;utm_campaign=Badge_Grade)
 
 A new way, new rule to work with MSSQL database version use fluent migrator
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
@@ -19,15 +19,15 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 <add key="mgr:DatabaseKeys" value="MovieStore, InventoryDb"/>
 <add key="mgr:RootNamespace" value="DatabaseMigrateRunner.Migrations"/>
 
-<add key="mgr:MovieStore_ConnString" value="Data Source=JINPC\MSSQL2014;Initial Catalog=FirstDb;User ID=u;Password=p;Connection Timeout=6000;"/>
-<add key="mgr:InventoryDb_ConnString" value="Data Source=JINPC\MSSQL2014;Initial Catalog=SecondDb;User ID=u;Password=p;Connection Timeout=6000;"/>
+<add key="mgr:MovieStore_ConnString" value="Data Source=.\MSSQL2014;Initial Catalog=FirstDb;User ID=u;Password=p;Connection Timeout=6000;"/>
+<add key="mgr:InventoryDb_ConnString" value="Data Source=.\MSSQL2014;Initial Catalog=SecondDb;User ID=u;Password=p;Connection Timeout=6000;"/>
 ```
 
 
 ## Migration Scripts
 *Migration structure:*
 
-<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/sample%20migration%20structure.png" style="width: 130%; height: 130%" />
+<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/images/sample-migration-structure.png" style="width: 120%; height: 120%" />
 
 *Sample script:*
 ```c#
