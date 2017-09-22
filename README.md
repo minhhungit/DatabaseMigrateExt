@@ -1,4 +1,4 @@
-# DatabaseMigrateExt <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" />
+# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/Src/DatabaseMigrateExt/Resouces/favicon.svg" style="width: 30px; height: 30px;" /> DatabaseMigrateExt <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" />
 A new way, new rule to work with MSSQL database version use fluent migrator
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
 - [https://github.com/minhhungit/DatabaseMigrateExt](https://github.com/minhhungit/DatabaseMigrateExt)
@@ -24,9 +24,11 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 
 
 ## Migration Scripts
-<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/sample%20migration%20structure.png" />
+*Migration structure:*
 
-Sample script:
+<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/sample%20migration%20structure.png" style="width: 130%; height: 130%" />
+
+*Sample script:*
 ```c#
 [ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 9, day: 21, hour: 19, minute: 40, second: 01)]
 public class SqlStructure_20170921_194001_inital_tables : Migration
@@ -35,6 +37,7 @@ public class SqlStructure_20170921_194001_inital_tables : Migration
     {
         // do something here
     }
+    ....
 }
 ```
 
@@ -46,15 +49,20 @@ using DatabaseMigrateExt;
 .
 static void Main(string[] args)
 {
+    var databaseKeys = new List<string> { "MovieStore", "InventoryDb" };
+
+    // OR load values from AppSetting
+    // databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
+
     var setting = new MigrationSetting
     {
-        DatabaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList(),
-        MigrationAssembly = Assembly.GetExecutingAssembly()
+        DatabaseKeys = databaseKeys
     };
 
-    // apply
+    Console.WriteLine("Start...");
     MigrationManager.Instance.Run(setting);
 
+    Console.WriteLine("Completed!");
     Console.ReadKey();
 }
 ```

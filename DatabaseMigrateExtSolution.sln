@@ -9,6 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{E1E4B2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMigrateRunner", "Tutorials\DatabaseMigrateRunner\DatabaseMigrateRunner.csproj", "{69079B8B-3D35-499E-AC67-F8F0D75FD58B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{849F76E0-F520-485F-9CE4-9914808EEE3A}"
+	ProjectSection(SolutionItems) = preProject
+		Build\DatabaseMigrateExt.nuspec = Build\DatabaseMigrateExt.nuspec
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
