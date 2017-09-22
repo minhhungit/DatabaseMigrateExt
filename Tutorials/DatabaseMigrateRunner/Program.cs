@@ -7,7 +7,7 @@ namespace DatabaseMigrateRunner
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
 
