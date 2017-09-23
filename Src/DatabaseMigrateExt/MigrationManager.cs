@@ -67,7 +67,7 @@ namespace DatabaseMigrateExt
                 var migrateAttr = (Attributes.ExtMigrationAttribute)attrs[0];
                 if (migrateAttr.ScriptType == scriptType)
                 {
-                    runner.ApplyMigrationUp(script.Value, true);
+                    runner.ApplyMigrationUp(script.Value, migrateAttr.UseTransaction);
                 }
             }
         }

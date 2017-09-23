@@ -5,7 +5,7 @@ using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
-    [ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 9, day: 22, hour: 02, minute: 08, second: 01)]
+    [ExtMigration(DatabaseScriptType.SqlDataAndStructure, 2017, 9, 22, 02, 08, 01)]
     public class InventoryDb_20170922_020801_inital_tables : Migration
     {
         public override void Up()
