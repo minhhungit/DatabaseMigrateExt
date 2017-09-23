@@ -59,7 +59,10 @@ namespace DatabaseMigrateExt
             foreach (var script in migrations)
             {
                 var attrs = script.Value.Migration.GetType().GetCustomAttributes(typeof(Attributes.ExtMigrationAttribute), false);
-                if (attrs.Length <= 0) continue;
+                if (attrs.Length <= 0)
+                {
+                    continue;
+                }
 
                 var migrateAttr = (Attributes.ExtMigrationAttribute)attrs[0];
                 if (migrateAttr.ScriptType == scriptType)
@@ -69,7 +72,7 @@ namespace DatabaseMigrateExt
             }
         }
 
-        private MigrationRunner GetMigrationRunner(Assembly migrationAssembly, StringWriter sw, MigrateDatabaseItem dbItem)
+        private static MigrationRunner GetMigrationRunner(Assembly migrationAssembly, StringWriter sw, MigrateDatabaseItem dbItem)
         {
             Announcer announcer = new TextWriterWithGoAnnouncer(sw) { ShowSql = true };
 

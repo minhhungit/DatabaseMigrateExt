@@ -23,7 +23,9 @@ namespace DatabaseMigrateExt
         }
 
         public List<string> DatabaseKeys { get; set; }
-        public List<DatabaseScriptType> AvailableLevels = Enum.GetValues(typeof(DatabaseScriptType)).OfType<DatabaseScriptType>().ToList();
-        public Assembly MigrationAssembly = Assembly.GetCallingAssembly();
+
+        public List<DatabaseScriptType> AvailableLevels { get; set; } = Enum.GetValues(typeof(DatabaseScriptType)).OfType<DatabaseScriptType>().ToList();
+
+        public Assembly MigrationAssembly { get; set; } = Assembly.GetCallingAssembly();
     }
 }
