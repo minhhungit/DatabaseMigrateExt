@@ -12,6 +12,16 @@ namespace DatabaseMigrateExt
 
         public string DatabaseKey { get; set; }
         public string ConnectionString => ConfigurationManager.AppSettings[$"mgr:{DatabaseKey}_ConnString"];
+
+        public string DatabaseName
+        {
+            get
+            {
+                var builder = new SqlConnectionStringBuilder(ConnectionString);
+                return builder.InitialCatalog;
+            }
+        }
+
         public int ConnectionTimeout
         {
             get
