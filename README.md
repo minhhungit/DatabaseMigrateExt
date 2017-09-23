@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/icon/favicon.ico" width="32" /> DatabaseMigrateExt <a href="https://ci.appveyor.com/project/minhhungit/DatabaseMigrateExt"> <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" /></a> <a href="https://www.nuget.org/packages/DatabaseMigrateExt/"><img src="https://img.shields.io/nuget/v/DatabaseMigrateExt.svg?style=flat" /></a> [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1b3c86714594b6894bb9382c3f85f33)](https://www.codacy.com/app/it.minhhung/DatabaseMigrateExt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minhhungit/DatabaseMigrateExt&amp;utm_campaign=Badge_Grade)
+# <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Icon/favicon.ico" width="32" /> DatabaseMigrateExt <a href="https://ci.appveyor.com/project/minhhungit/DatabaseMigrateExt"> <img src="https://ci.appveyor.com/api/projects/status/el1b0f9rrgup8vgv?svg=true" /></a> <a href="https://www.nuget.org/packages/DatabaseMigrateExt/"><img src="https://img.shields.io/nuget/v/DatabaseMigrateExt.svg?style=flat" /></a> [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1b3c86714594b6894bb9382c3f85f33)](https://www.codacy.com/app/it.minhhung/DatabaseMigrateExt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minhhungit/DatabaseMigrateExt&amp;utm_campaign=Badge_Grade)
 
 A new way, new rule to work with MSSQL database version use fluent migrator
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
@@ -27,9 +27,11 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 ## Migration Scripts
 *Migration structure:*
 
-<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/images/sample-migration-structure.png" style="width: 120%; height: 120%" />
+<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/sample-migration-structure.png" style="width: 120%; height: 120%" />
 
 *Sample script:*
+
+> Note: System will find all migration which used **ExtMigration** attribute to apply
 ```c#
 [ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 9, day: 21, hour: 19, minute: 40, second: 01)]
 public class SqlStructure_20170921_194001_inital_tables : Migration
@@ -55,10 +57,7 @@ static void Main(string[] args)
     // OR load values from AppSetting
     // databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
 
-    var setting = new MigrationSetting
-    {
-        DatabaseKeys = databaseKeys
-    };
+    var setting = new MigrationSetting(databaseKeys);
 
     Console.WriteLine("Start...");
     MigrationManager.Instance.Run(setting);

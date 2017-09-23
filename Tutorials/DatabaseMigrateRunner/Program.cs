@@ -7,19 +7,16 @@ namespace DatabaseMigrateRunner
 {
     class Program
     {
-        static void Main()
+        private static void Main()
         {
             var databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
 
-            var setting = new MigrationSetting
-            {
-                DatabaseKeys = databaseKeys
-            };
+            var setting = new MigrationSetting(databaseKeys);
 
-            // Start
+            Console.WriteLine("Start...");
             MigrationManager.Instance.Run(setting);
 
-            //Completed!
+            Console.WriteLine("Completed!");
             Console.ReadKey();
         }
     }
