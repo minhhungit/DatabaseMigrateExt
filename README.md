@@ -16,31 +16,37 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 
 ## Config
 ```xml
-<add key="mgr:DatabaseKeys" value="MovieStore, InventoryDb"/>
-<add key="mgr:RootNamespace" value="DatabaseMigrateRunner.Migrations"/>
+<add key="mgr:DatabaseKeys"     value="MovieStore, InventoryDb"/>
+<add key="mgr:RootNamespace"    value="DatabaseMigrateRunner.Migrations"/>
 
-<add key="mgr:MovieStore_ConnString" value="Data Source=.\MSSQL2014;Initial Catalog=FirstDb;User ID=u;Password=p;Connection Timeout=6000;"/>
-<add key="mgr:InventoryDb_ConnString" value="Data Source=.\MSSQL2014;Initial Catalog=SecondDb;User ID=u;Password=p;Connection Timeout=6000;"/>
+<add key="mgr:MovieStore_ConnString"    value="Data Source=.\MSSQL2014;Initial Catalog=FirstDb;User ID=u;Password=p;Connection Timeout=6000;"/>
+<add key="mgr:InventoryDb_ConnString"   value="Data Source=.\MSSQL2014;Initial Catalog=SecondDb;User ID=u;Password=p;Connection Timeout=6000;"/>
 ```
 
 
 ## Migration Scripts
 *Migration structure:*
+> Note: You can place migration class in everywhere as long as it is placed under namespace of database.
+> For example: **DatabaseMigrateRunner.Migrations.MovieStore**
 
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/sample-migration-structure.png" style="width: 120%; height: 120%" />
 
 *Sample script:*
 
-> Note: System will find all migration which used **ExtMigration** attribute to apply
+> Note: System will find all migrations which used **ExtMigration** attribute to apply
+
 ```c#
-[ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 9, day: 21, hour: 19, minute: 40, second: 01)]
-public class SqlStructure_20170921_194001_inital_tables : Migration
+namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    public override void Up()
+    [ExtMigration(DatabaseScriptType.SqlDataAndStructure, 2017, 9, 22, 02, 08, 01)]
+    public class SqlStructure_20170921_194001_inital_tables : Migration
     {
-        // do something here
+        public override void Up()
+        {
+            // do something here
+        }
+        ....
     }
-    ....
 }
 ```
 
