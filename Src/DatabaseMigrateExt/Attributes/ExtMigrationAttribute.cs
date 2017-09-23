@@ -22,7 +22,13 @@
         {
             var branchNumber = (int)scriptType;
 
-            return branchNumber * 100000000000000L + year * 10000000000L + month * 100000000L + day * 1000000L + hour * 10000L + minute * 100L + second;
+            return (branchNumber * 100000000000000L) +
+                   (year * 10000000000L) +
+                   (month * 100000000L) +
+                   (day * 1000000L) +
+                   (hour * 10000L) +
+                   (minute * 100L) +
+                   second;
         }
     }
 }
