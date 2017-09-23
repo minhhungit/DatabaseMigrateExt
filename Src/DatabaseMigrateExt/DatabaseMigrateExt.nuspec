@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DatabaseMigrateExt</id>
-    <version>1.0.0.4</version>
+    <version>2.0.0.0</version>
     <title>$title$</title>
     <authors>Hung Vo</authors>
     <owners>Hung Vo</owners>
@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Icon/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provide a new way to work with mssql database version</description>
-    <releaseNotes>Remove resource folder</releaseNotes>
+    <releaseNotes>Optimize code and change migration structure, better/cleaner</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>fluentmigrator magration fluent migrator database version schema mssql migrate</tags>
     <dependencies>

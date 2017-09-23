@@ -3,10 +3,10 @@ using DatabaseMigrateExt;
 using DatabaseMigrateExt.Attributes;
 using FluentMigrator;
 
-namespace DatabaseMigrateRunner.Migrations.MovieStore.SqlDataAndStructure
+namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    [ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 9, day: 21, hour: 19, minute: 40, second: 01)]
-    public class SqlStructure_20170921_194001_inital_tables : Migration
+    [ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 10, day: 21, hour: 19, minute: 40, second: 01)]
+    public class MovieStore_20171021_194001_inital_tables : Migration
     {
         public override void Up()
         {

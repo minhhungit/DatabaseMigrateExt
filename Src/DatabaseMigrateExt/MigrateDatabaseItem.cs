@@ -1,25 +1,17 @@
 ﻿using System.Configuration;
 using System.Data.SqlClient;
-using System.Reflection;
 
 namespace DatabaseMigrateExt
 {
     public class MigrateDatabaseItem
     {
-        public static MigrateDatabaseItem CreateDatabaseItem(Assembly migrationAssembly, string databaseKey)
+        public MigrateDatabaseItem(string databaseKey)
         {
-            return new MigrateDatabaseItem
-            {
-                DatabaseKey = databaseKey,
-                MigrationAssembly = migrationAssembly
-            };
+            DatabaseKey = databaseKey;
         }
 
         public string DatabaseKey { get; set; }
-        public string RootNamespace => ConfigurationManager.AppSettings["mgr:RootNamespace"];
         public string ConnectionString => ConfigurationManager.AppSettings[$"mgr:{DatabaseKey}_ConnString"];
-        public Assembly MigrationAssembly { get; set; }
-
         public int ConnectionTimeout
         {
             get
@@ -29,14 +21,11 @@ namespace DatabaseMigrateExt
             }
         }
 
-        public string SqlArchitectureRefScriptNamespace     => $"{RootNamespace}.{DatabaseKey}.SqlDataAndStructure._RefScript";
-        public string SqlArchitectureChangeScriptNamespace  => $"{RootNamespace}.{DatabaseKey}.SqlDataAndStructure";
+        public string RootNamespace => ConfigurationManager.AppSettings["mgr:RootNamespace"];
+        public string CurrentDatabsaeNamespace => $"{RootNamespace}.{DatabaseKey}";
 
-        public string SqlFunctionRefScriptNamespace         => $"{RootNamespace}.{DatabaseKey}.SqlFunction._RefScript";
-        public string SqlFunctionChangeScriptNamespace      => $"{RootNamespace}.{DatabaseKey}.SqlFunction";
-
-        public string SqlStoredRefScriptNamespace           => $"{RootNamespace}.{DatabaseKey}.SqlStored._RefScript";
-        public string SqlStoredChangeScriptNamespace        => $"{RootNamespace}.{DatabaseKey}.SqlStored";
-        
+        public string SqlArchitectureRefScriptNamespace     => $"{CurrentDatabsaeNamespace}._RefScript.DataAndStructure";
+        public string SqlFunctionRefScriptNamespace         => $"{CurrentDatabsaeNamespace}._RefScript.Function";
+        public string SqlStoredRefScriptNamespace           => $"{CurrentDatabsaeNamespace}._RefScript.Stored";
     }
 }

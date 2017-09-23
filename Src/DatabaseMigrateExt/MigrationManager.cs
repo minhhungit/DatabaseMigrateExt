@@ -1,10 +1,13 @@
-﻿using FluentMigrator.Runner;
+﻿using FluentMigrator.Infrastructure;
+using FluentMigrator.Runner;
 using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace DatabaseMigrateExt
 {
@@ -18,24 +21,13 @@ namespace DatabaseMigrateExt
         {
         }
 
-        public void Run(MigrationSetting setting, MigrateDatabaseItem item)
-        {
-            using (var sw = new StringWriter())
-            {
-                foreach (var scriptType in setting.AvailableLevels)
-                {
-                    ValidateAndRunMigrations(sw, item, scriptType);
-                }              
-            }
-        }
-
+        /// <summary>
+        /// Run migration for all database
+        /// </summary>
+        /// <param name="setting"></param>
         public void Run(MigrationSetting setting)
         {
-            var migrationDatabaseItems = new List<MigrateDatabaseItem>();
-            foreach (var databaseName in setting.DatabaseKeys)
-            {
-                migrationDatabaseItems.Add(MigrateDatabaseItem.CreateDatabaseItem(setting.MigrationAssembly, databaseName));
-            }
+            var migrationDatabaseItems = setting.DatabaseKeys.Select(dbKey => new MigrateDatabaseItem(dbKey)).ToList();
 
             foreach (var item in migrationDatabaseItems)
             {
@@ -43,21 +35,44 @@ namespace DatabaseMigrateExt
             }            
         }
 
-        private void ValidateAndRunMigrations(StringWriter sw, MigrateDatabaseItem item, DatabaseScriptType scriptType)
+        /// <summary>
+        /// Run migration for a specific database
+        /// </summary>
+        /// <param name="setting"></param>
+        /// <param name="item"></param>
+        public void Run(MigrationSetting setting, MigrateDatabaseItem item)
         {
-            var runner = GetMigrationRunner(sw, item, scriptType);
-
-            foreach (var script in runner.MigrationLoader.LoadMigrations())
+            using (var sw = new StringWriter())
             {
-                if (!script.Key.ToString().StartsWith(((int)scriptType).ToString()) || script.Key.ToString().Length < 18)
+                var runner = GetMigrationRunner(setting.MigrationAssembly, sw, item);
+                var migrations = runner.MigrationLoader.LoadMigrations();
+
+                foreach (var scriptType in setting.AvailableLevels)
                 {
-                    throw new ArgumentException($"You used wrong migration attribute or you put migration attribute wrong place: {scriptType}. {Environment.NewLine}{script.Value}");
+                    ValidateAndRunMigrations(runner, migrations, scriptType);
                 }
             }
-            runner.MigrateUp(true);
         }
 
-        private MigrationRunner GetMigrationRunner(StringWriter sw, MigrateDatabaseItem dbItem, DatabaseScriptType scriptType)
+        private static void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType)
+        {
+            foreach (var script in migrations)
+            {
+                var attrs = script.Value.Migration.GetType().GetCustomAttributes(typeof(Attributes.ExtMigrationAttribute), false);
+                if (attrs.Length <= 0)
+                {
+                    continue;
+                }
+
+                var migrateAttr = (Attributes.ExtMigrationAttribute)attrs[0];
+                if (migrateAttr.ScriptType == scriptType)
+                {
+                    runner.ApplyMigrationUp(script.Value, true);
+                }
+            }
+        }
+
+        private static MigrationRunner GetMigrationRunner(Assembly migrationAssembly, StringWriter sw, MigrateDatabaseItem dbItem)
         {
             Announcer announcer = new TextWriterWithGoAnnouncer(sw) { ShowSql = true };
 
@@ -66,27 +81,19 @@ namespace DatabaseMigrateExt
                 ApplicationContext = dbItem
             };
 
-            switch (scriptType)
+            if (string.IsNullOrWhiteSpace(dbItem.CurrentDatabsaeNamespace))
             {
-                case DatabaseScriptType.SqlDataAndStructure:
-                    runnerCtx.Namespace = dbItem.SqlArchitectureChangeScriptNamespace;
-                    break;                
-                case DatabaseScriptType.SqlFunction:
-                    runnerCtx.Namespace = dbItem.SqlFunctionChangeScriptNamespace;
-                    break;
-                case DatabaseScriptType.SqlStoredProcedure:
-                    runnerCtx.Namespace = dbItem.SqlStoredChangeScriptNamespace;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(scriptType), scriptType, null);
+                throw new ArgumentOutOfRangeException(nameof(dbItem), dbItem, null);
             }
+
+            runnerCtx.Namespace = dbItem.CurrentDatabsaeNamespace;
 
             var options = new ProcessorOptions { PreviewOnly = false, Timeout = dbItem.ConnectionTimeout };
             var factory = new FluentMigrator.Runner.Processors.SqlServer.SqlServer2014ProcessorFactory();
 
             using (var processor = factory.Create(dbItem.ConnectionString, announcer, options))
             {
-                return new MigrationRunner(dbItem.MigrationAssembly, runnerCtx, processor);
+                return new MigrationRunner(migrationAssembly, runnerCtx, processor);
             }
         }
     }

@@ -2,7 +2,7 @@
 
 namespace DatabaseMigrateExt
 {
-    public static class Utils
+    public static class MigrationUtils
     {
         public static void ExecuteSqlStructure(this Migration migration, string scriptFileName)
         {

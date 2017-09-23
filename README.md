@@ -30,6 +30,8 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/sample-migration-structure.png" style="width: 120%; height: 120%" />
 
 *Sample script:*
+
+> Note: System will find all migration which used **ExtMigration** attribute to apply
 ```c#
 [ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 9, day: 21, hour: 19, minute: 40, second: 01)]
 public class SqlStructure_20170921_194001_inital_tables : Migration
@@ -55,10 +57,7 @@ static void Main(string[] args)
     // OR load values from AppSetting
     // databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
 
-    var setting = new MigrationSetting
-    {
-        DatabaseKeys = databaseKeys
-    };
+    var setting = new MigrationSetting(databaseKeys);
 
     Console.WriteLine("Start...");
     MigrationManager.Instance.Run(setting);

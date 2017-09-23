@@ -3,10 +3,10 @@ using DatabaseMigrateExt;
 using DatabaseMigrateExt.Attributes;
 using FluentMigrator;
 
-namespace DatabaseMigrateRunner.Migrations.InventoryDb.SqlDataAndStructure
+namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
     [ExtMigration(scriptType: DatabaseScriptType.SqlDataAndStructure, year: 2017, month: 9, day: 22, hour: 02, minute: 08, second: 01)]
-    public class SqlStructure_20170922_020801_inital_tables : Migration
+    public class InventoryDb_20170922_020801_inital_tables : Migration
     {
         public override void Up()
         {
