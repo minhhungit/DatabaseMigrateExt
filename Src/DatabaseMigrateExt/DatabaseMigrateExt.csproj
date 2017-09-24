@@ -30,12 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="FluentMigrator, Version=1.6.2.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentMigrator.1.6.2\lib\40\FluentMigrator.dll</HintPath>
     </Reference>
     <Reference Include="FluentMigrator.Runner, Version=1.6.2.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentMigrator.Runner.1.6.2\lib\40\FluentMigrator.Runner.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -45,11 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\ExtMigrationAttribute.cs" />
-    <Compile Include="DatabaseScriptType.cs" />
-    <Compile Include="MigrateDatabaseItem.cs" />
+    <Compile Include="Models\DatabaseScriptType.cs" />
+    <Compile Include="Models\MigrateDatabaseContext.cs" />
     <Compile Include="MigrationManager.cs" />
-    <Compile Include="MigrationSetting.cs" />
-    <Compile Include="MigrationUtils.cs" />
+    <Compile Include="Models\MigrationSetting.cs" />
+    <Compile Include="Utils\EnumUtils.cs" />
+    <Compile Include="Utils\MigrationUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

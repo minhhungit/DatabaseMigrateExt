@@ -8,11 +8,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Common.Logging;
+using DatabaseMigrateExt.Models;
+using DatabaseMigrateExt.Utils;
 
 namespace DatabaseMigrateExt
 {
     public class MigrationManager
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(MigrationManager));
         private static readonly Lazy<MigrationManager> Lazy = new Lazy<MigrationManager>(() => new MigrationManager());
 
         public static MigrationManager Instance => Lazy.Value;
@@ -27,12 +31,17 @@ namespace DatabaseMigrateExt
         /// <param name="setting"></param>
         public void Run(MigrationSetting setting)
         {
-            var migrationDatabaseItems = setting.DatabaseKeys.Select(dbKey => new MigrateDatabaseItem(dbKey)).ToList();
+            Logger.InfoFormat($"Start...{Environment.NewLine}");
 
-            foreach (var item in migrationDatabaseItems)
+            var migrationDatabases = setting.DatabaseKeys.Select(dbKey => new MigrateDatabaseContext(dbKey)).ToList();
+
+            foreach (var item in migrationDatabases)
             {
+                Logger.InfoFormat($"DATEBASE: {item.DatabaseKey} ({item.DatabaseName})");
                 Run(setting, item);
-            }            
+            } 
+            
+            Logger.InfoFormat("All done!");
         }
 
         /// <summary>
@@ -40,39 +49,58 @@ namespace DatabaseMigrateExt
         /// </summary>
         /// <param name="setting"></param>
         /// <param name="item"></param>
-        public void Run(MigrationSetting setting, MigrateDatabaseItem item)
+        public void Run(MigrationSetting setting, MigrateDatabaseContext item)
         {
-            using (var sw = new StringWriter())
+            try
             {
-                var runner = GetMigrationRunner(setting.MigrationAssembly, sw, item);
-                var migrations = runner.MigrationLoader.LoadMigrations();
-
-                foreach (var scriptType in setting.AvailableLevels)
+                using (var sw = new StringWriter())
                 {
-                    ValidateAndRunMigrations(runner, migrations, scriptType);
+                    var runner = GetMigrationRunner(setting.MigrationAssembly, sw, item);
+                    var migrations = runner.MigrationLoader.LoadMigrations();
+
+                    foreach (var scriptType in setting.AvailableLevels)
+                    {
+                        ValidateAndRunMigrations(runner, migrations, scriptType);
+                    }
                 }
+                Logger.InfoFormat(" -> done");
+                Logger.InfoFormat(Environment.NewLine);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat(string.Empty, ex);
+                throw;
             }
         }
 
         private static void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType)
         {
+            var printAtStart = false;
             foreach (var script in migrations)
             {
-                var attrs = script.Value.Migration.GetType().GetCustomAttributes(typeof(Attributes.ExtMigrationAttribute), false);
-                if (attrs.Length <= 0)
+                var migrateAttr =
+                    (Attributes.ExtMigrationAttribute)
+                    script.Value.Migration.GetType()
+                        .GetCustomAttributes(typeof(Attributes.ExtMigrationAttribute), false)
+                        .FirstOrDefault();
+
+                if (migrateAttr == null || migrateAttr.ScriptType != scriptType || runner.VersionLoader.VersionInfo.HasAppliedMigration(script.Value.Version))
                 {
                     continue;
                 }
 
-                var migrateAttr = (Attributes.ExtMigrationAttribute)attrs[0];
-                if (migrateAttr.ScriptType == scriptType)
+                if (!printAtStart)
                 {
-                    runner.ApplyMigrationUp(script.Value, migrateAttr.UseTransaction);
+                    Logger.InfoFormat($" > {scriptType.GetEnumDescription()}");
+                    printAtStart = true;
                 }
+
+                Logger.InfoFormat($"   - Ver: {script.Value.Version} - {script.Value.Migration.GetType().Name} {(!migrateAttr.UseTransaction ? " -noTrans" : string.Empty)}");
+                runner.ApplyMigrationUp(script.Value, migrateAttr.UseTransaction);
             }
         }
 
-        private static MigrationRunner GetMigrationRunner(Assembly migrationAssembly, StringWriter sw, MigrateDatabaseItem dbItem)
+        private static MigrationRunner GetMigrationRunner(Assembly migrationAssembly, StringWriter sw, MigrateDatabaseContext dbItem)
         {
             Announcer announcer = new TextWriterWithGoAnnouncer(sw) { ShowSql = true };
 
