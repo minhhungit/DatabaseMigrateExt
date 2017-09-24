@@ -1,4 +1,5 @@
 ﻿using DatabaseMigrateExt;
+using DatabaseMigrateExt.Models;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace DatabaseMigrateRunner
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("Something happenned: " + ex.Message);
             }
 
             Console.ReadKey();

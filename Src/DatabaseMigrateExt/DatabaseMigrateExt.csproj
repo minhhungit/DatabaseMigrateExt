@@ -52,11 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\ExtMigrationAttribute.cs" />
-    <Compile Include="DatabaseScriptType.cs" />
-    <Compile Include="MigrateDatabaseItem.cs" />
+    <Compile Include="Models\DatabaseScriptType.cs" />
+    <Compile Include="Models\MigrateDatabaseContext.cs" />
     <Compile Include="MigrationManager.cs" />
-    <Compile Include="MigrationSetting.cs" />
-    <Compile Include="MigrationUtils.cs" />
+    <Compile Include="Models\MigrationSetting.cs" />
+    <Compile Include="Utils\EnumUtils.cs" />
+    <Compile Include="Utils\MigrationUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

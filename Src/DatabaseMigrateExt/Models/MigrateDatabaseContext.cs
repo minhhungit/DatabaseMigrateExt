@@ -1,11 +1,11 @@
 ﻿using System.Configuration;
 using System.Data.SqlClient;
 
-namespace DatabaseMigrateExt
+namespace DatabaseMigrateExt.Models
 {
-    public class MigrateDatabaseItem
+    public class MigrateDatabaseContext
     {
-        public MigrateDatabaseItem(string databaseKey)
+        public MigrateDatabaseContext(string databaseKey)
         {
             DatabaseKey = databaseKey;
         }

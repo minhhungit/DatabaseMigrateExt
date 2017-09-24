@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace DatabaseMigrateExt
+namespace DatabaseMigrateExt.Models
 {
     public enum DatabaseScriptType
     {
