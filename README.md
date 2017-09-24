@@ -2,8 +2,6 @@
 
 A new way, new rule to work with MSSQL database version use fluent migrator
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
-- [https://github.com/minhhungit/DatabaseMigrateExt](https://github.com/minhhungit/DatabaseMigrateExt)
-
 
 ## Installation
 >Install-Package DatabaseMigrateExt
@@ -54,6 +52,7 @@ namespace DatabaseMigrateRunner.Migrations.MovieStore
 ## Run
 ```c#
 using DatabaseMigrateExt;
+using DatabaseMigrateExt.Models;
 .
 .
 static void Main(string[] args)
@@ -65,7 +64,7 @@ static void Main(string[] args)
 
     var setting = new MigrationSetting(databaseKeys);
 
-    Console.WriteLine("Start...");
+    // start
     MigrationManager.Instance.Run(setting);
 
     Console.WriteLine("Completed!");
