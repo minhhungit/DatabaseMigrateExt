@@ -1,7 +1,8 @@
 ﻿using FluentMigrator;
 using System;
-using DatabaseMigrateExt;
 using DatabaseMigrateExt.Attributes;
+using DatabaseMigrateExt.Models;
+using DatabaseMigrateExt.Utils;
 
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
