@@ -8,11 +8,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Common.Logging;
 
 namespace DatabaseMigrateExt
 {
     public class MigrationManager
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(MigrationManager));
         private static readonly Lazy<MigrationManager> Lazy = new Lazy<MigrationManager>(() => new MigrationManager());
 
         public static MigrationManager Instance => Lazy.Value;
@@ -27,12 +29,17 @@ namespace DatabaseMigrateExt
         /// <param name="setting"></param>
         public void Run(MigrationSetting setting)
         {
+            Logger.InfoFormat($"Start...{Environment.NewLine}");
+
             var migrationDatabaseItems = setting.DatabaseKeys.Select(dbKey => new MigrateDatabaseItem(dbKey)).ToList();
 
             foreach (var item in migrationDatabaseItems)
             {
+                Logger.InfoFormat($"DATEBASE: {item.DatabaseKey} ({item.DatabaseName})");
                 Run(setting, item);
-            }            
+            } 
+            
+            Logger.InfoFormat("All done!");
         }
 
         /// <summary>
@@ -52,10 +59,13 @@ namespace DatabaseMigrateExt
                     ValidateAndRunMigrations(runner, migrations, scriptType);
                 }
             }
+            Logger.InfoFormat(" -> done");
+            Logger.InfoFormat(Environment.NewLine);
         }
 
         private static void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType)
         {
+            var printAtStart = false;
             foreach (var script in migrations)
             {
                 var attrs = script.Value.Migration.GetType().GetCustomAttributes(typeof(Attributes.ExtMigrationAttribute), false);
@@ -67,33 +77,51 @@ namespace DatabaseMigrateExt
                 var migrateAttr = (Attributes.ExtMigrationAttribute)attrs[0];
                 if (migrateAttr.ScriptType == scriptType)
                 {
-                    runner.ApplyMigrationUp(script.Value, migrateAttr.UseTransaction);
+                    if (!runner.VersionLoader.VersionInfo.HasAppliedMigration(script.Value.Version))
+                    {
+                        if (!printAtStart)
+                        {
+                            Logger.InfoFormat($"> {scriptType.GetEnumDescription()}");
+                            printAtStart = true;
+                        }
+
+                        Logger.InfoFormat($"- Ver: {script.Value.Version} - {script.Value.Migration.GetType().Name} {(!migrateAttr.UseTransaction ? " -noTrans" : string.Empty)}");
+                        runner.ApplyMigrationUp(script.Value, migrateAttr.UseTransaction);
+                    }
                 }
             }
         }
 
         private static MigrationRunner GetMigrationRunner(Assembly migrationAssembly, StringWriter sw, MigrateDatabaseItem dbItem)
         {
-            Announcer announcer = new TextWriterWithGoAnnouncer(sw) { ShowSql = true };
-
-            var runnerCtx = new RunnerContext(announcer)
+            try
             {
-                ApplicationContext = dbItem
-            };
+                Announcer announcer = new TextWriterWithGoAnnouncer(sw) {ShowSql = true};
 
-            if (string.IsNullOrWhiteSpace(dbItem.CurrentDatabsaeNamespace))
-            {
-                throw new ArgumentOutOfRangeException(nameof(dbItem), dbItem, null);
+                var runnerCtx = new RunnerContext(announcer)
+                {
+                    ApplicationContext = dbItem
+                };
+
+                if (string.IsNullOrWhiteSpace(dbItem.CurrentDatabsaeNamespace))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(dbItem), dbItem, null);
+                }
+
+                runnerCtx.Namespace = dbItem.CurrentDatabsaeNamespace;
+
+                var options = new ProcessorOptions {PreviewOnly = false, Timeout = dbItem.ConnectionTimeout};
+                var factory = new FluentMigrator.Runner.Processors.SqlServer.SqlServer2014ProcessorFactory();
+
+                using (var processor = factory.Create(dbItem.ConnectionString, announcer, options))
+                {
+                    return new MigrationRunner(migrationAssembly, runnerCtx, processor);
+                }
             }
-
-            runnerCtx.Namespace = dbItem.CurrentDatabsaeNamespace;
-
-            var options = new ProcessorOptions { PreviewOnly = false, Timeout = dbItem.ConnectionTimeout };
-            var factory = new FluentMigrator.Runner.Processors.SqlServer.SqlServer2014ProcessorFactory();
-
-            using (var processor = factory.Create(dbItem.ConnectionString, announcer, options))
+            catch (Exception ex)
             {
-                return new MigrationRunner(migrationAssembly, runnerCtx, processor);
+                Logger.ErrorFormat(string.Empty, ex);
+                throw;
             }
         }
     }
