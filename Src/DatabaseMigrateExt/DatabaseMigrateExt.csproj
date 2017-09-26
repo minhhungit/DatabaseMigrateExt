@@ -55,6 +55,7 @@
     <Compile Include="Models\DatabaseScriptType.cs" />
     <Compile Include="Models\MigrateDatabaseContext.cs" />
     <Compile Include="MigrationManager.cs" />
+    <Compile Include="Models\MigrationDirection.cs" />
     <Compile Include="Models\MigrationSetting.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="Utils\MigrationUtils.cs" />

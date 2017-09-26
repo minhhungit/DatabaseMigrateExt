@@ -15,7 +15,7 @@ namespace DatabaseMigrateRunner
                 var databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
                 var setting = new MigrationSetting(databaseKeys);
                 
-                MigrationManager.Instance.Run(setting);
+                MigrationManager.Run(setting);
                 Console.WriteLine("Completed!");
             }
             catch (Exception ex)

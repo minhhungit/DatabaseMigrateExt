@@ -17,50 +17,64 @@ namespace DatabaseMigrateExt
     public class MigrationManager
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MigrationManager));
-        private static readonly Lazy<MigrationManager> Lazy = new Lazy<MigrationManager>(() => new MigrationManager());
 
-        public static MigrationManager Instance => Lazy.Value;
-
-        private MigrationManager()
+        /// <summary>
+        /// Run migration for all database for migration Up direction
+        /// </summary>
+        /// <param name="setting"></param>
+        public static void Run(MigrationSetting setting)
         {
+            Run(setting, MigrationDirection.Up);
         }
 
         /// <summary>
-        /// Run migration for all database
+        /// Run migration for all database and a specific migration direction (Up or Down)
         /// </summary>
         /// <param name="setting"></param>
-        public void Run(MigrationSetting setting)
+        /// <param name="migrationDirection"></param>
+        public static void Run(MigrationSetting setting, MigrationDirection migrationDirection)
         {
             Logger.InfoFormat($"Start...{Environment.NewLine}");
 
             var migrationDatabases = setting.DatabaseKeys.Select(dbKey => new MigrateDatabaseContext(dbKey)).ToList();
 
-            foreach (var item in migrationDatabases)
+            foreach (var dbContext in migrationDatabases)
             {
-                Logger.InfoFormat($"DATEBASE: {item.DatabaseKey} ({item.DatabaseName})");
-                Run(setting, item);
-            } 
-            
+                Logger.InfoFormat($"DATEBASE: {dbContext.DatabaseKey} ({dbContext.DatabaseName})");
+                Run(setting, dbContext, migrationDirection);
+            }
+
             Logger.InfoFormat("All done!");
         }
 
         /// <summary>
-        /// Run migration for a specific database
+        /// Run migration for a specific database for migration Up direction
         /// </summary>
         /// <param name="setting"></param>
-        /// <param name="item"></param>
-        public void Run(MigrationSetting setting, MigrateDatabaseContext item)
+        /// <param name="dbContext"></param>
+        public static void Run(MigrationSetting setting, MigrateDatabaseContext dbContext)
+        {
+            Run(setting, dbContext, MigrationDirection.Up);
+        }
+
+        /// <summary>
+        /// Run migration for a specific database and a specific migration direction
+        /// </summary>
+        /// <param name="setting"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="migrationDirection">Migration Direction (Up or Down)</param>
+        public static void Run(MigrationSetting setting, MigrateDatabaseContext dbContext, MigrationDirection migrationDirection)
         {
             try
             {
                 using (var sw = new StringWriter())
                 {
-                    var runner = GetMigrationRunner(setting.MigrationAssembly, sw, item);
+                    var runner = GetMigrationRunner(setting.MigrationAssembly, sw, dbContext);
                     var migrations = runner.MigrationLoader.LoadMigrations();
 
                     foreach (var scriptType in setting.AvailableLevels)
                     {
-                        ValidateAndRunMigrations(runner, migrations, scriptType);
+                        ValidateAndRunMigrations(runner, migrations, scriptType, migrationDirection);
                     }
                 }
                 Logger.InfoFormat(" -> done");
@@ -73,7 +87,7 @@ namespace DatabaseMigrateExt
             }
         }
 
-        private static void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType)
+        private static void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType, MigrationDirection migrationDirection)
         {
             var printAtStart = false;
             foreach (var script in migrations)
@@ -96,7 +110,15 @@ namespace DatabaseMigrateExt
                 }
 
                 Logger.InfoFormat($"   - Ver: {script.Value.Version} - {script.Value.Migration.GetType().Name} {(!migrateAttr.UseTransaction ? " -noTrans" : string.Empty)}");
-                runner.ApplyMigrationUp(script.Value, migrateAttr.UseTransaction);
+
+                if (migrationDirection == MigrationDirection.Up)
+                {
+                    runner.ApplyMigrationUp(script.Value, migrateAttr.UseTransaction);
+                }
+                else
+                {
+                    runner.ApplyMigrationDown(script.Value, migrateAttr.UseTransaction);
+                }
             }
         }
 
