@@ -17,19 +17,12 @@ namespace DatabaseMigrateExt
     public class MigrationManager
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MigrationManager));
-        private static readonly Lazy<MigrationManager> Lazy = new Lazy<MigrationManager>(() => new MigrationManager());
-
-        public static MigrationManager Instance => Lazy.Value;
-
-        private MigrationManager()
-        {
-        }
 
         /// <summary>
         /// Run migration for all database for migration Up direction
         /// </summary>
         /// <param name="setting"></param>
-        public void Run(MigrationSetting setting)
+        public static void Run(MigrationSetting setting)
         {
             Run(setting, MigrationDirection.Up);
         }
@@ -39,7 +32,7 @@ namespace DatabaseMigrateExt
         /// </summary>
         /// <param name="setting"></param>
         /// <param name="migrationDirection"></param>
-        public void Run(MigrationSetting setting, MigrationDirection migrationDirection)
+        public static void Run(MigrationSetting setting, MigrationDirection migrationDirection)
         {
             Logger.InfoFormat($"Start...{Environment.NewLine}");
 
@@ -59,7 +52,7 @@ namespace DatabaseMigrateExt
         /// </summary>
         /// <param name="setting"></param>
         /// <param name="dbContext"></param>
-        public void Run(MigrationSetting setting, MigrateDatabaseContext dbContext)
+        public static void Run(MigrationSetting setting, MigrateDatabaseContext dbContext)
         {
             Run(setting, dbContext, MigrationDirection.Up);
         }
@@ -70,7 +63,7 @@ namespace DatabaseMigrateExt
         /// <param name="setting"></param>
         /// <param name="dbContext"></param>
         /// <param name="migrationDirection">Migration Direction (Up or Down)</param>
-        public void Run(MigrationSetting setting, MigrateDatabaseContext dbContext, MigrationDirection migrationDirection)
+        public static void Run(MigrationSetting setting, MigrateDatabaseContext dbContext, MigrationDirection migrationDirection)
         {
             try
             {

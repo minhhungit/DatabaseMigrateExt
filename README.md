@@ -65,7 +65,7 @@ static void Main(string[] args)
     var setting = new MigrationSetting(databaseKeys);
 
     // start
-    MigrationManager.Instance.Run(setting);
+    MigrationManager.Run(setting);
 
     Console.WriteLine("Completed!");
     Console.ReadKey();
