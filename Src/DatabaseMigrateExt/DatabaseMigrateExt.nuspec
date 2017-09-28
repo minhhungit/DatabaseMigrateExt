@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Icon/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provide a new way to work with mssql database version</description>
-    <releaseNotes>Implement Common.Logging and support DOWN migations</releaseNotes>
+    <releaseNotes>Revert Down migration feature, we won't support it anymore</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>fluentmigrator magration fluent migrator database version schema mssql migrate</tags>
     <dependencies>
