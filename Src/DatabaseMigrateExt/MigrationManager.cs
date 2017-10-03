@@ -17,12 +17,13 @@ namespace DatabaseMigrateExt
     public class MigrationManager
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MigrationManager));
-
+        private static Assembly _callingAssembly;
         /// <summary>
         ///  Run migration for all database and default settings
         /// </summary>
         public static void Run()
         {
+            _callingAssembly = Assembly.GetCallingAssembly();
             Run(new MigrationSetting());
         }
 
@@ -56,7 +57,18 @@ namespace DatabaseMigrateExt
             {
                 using (var sw = new StringWriter())
                 {
-                    var runner = GetMigrationRunner(setting.MigrationAssembly, sw, dbContext);
+                    var assemblyLocation = setting.MigrationAssembly;
+                    if (assemblyLocation.GetName().Name == "DatabaseMigrateExt")
+                    {
+                        assemblyLocation = _callingAssembly;
+                    }
+
+                    if (assemblyLocation == null)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(assemblyLocation), assemblyLocation, null);
+                    }
+
+                    var runner = GetMigrationRunner(assemblyLocation, sw, dbContext);
                     var migrations = runner.MigrationLoader.LoadMigrations();
 
                     foreach (var scriptType in setting.AvailableLevels)
