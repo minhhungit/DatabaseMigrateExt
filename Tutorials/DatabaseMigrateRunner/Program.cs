@@ -1,5 +1,6 @@
 ﻿using DatabaseMigrateExt;
 using System;
+using DatabaseMigrateExt.Models;
 
 namespace DatabaseMigrateRunner
 {
@@ -9,6 +10,7 @@ namespace DatabaseMigrateRunner
         {
             try
             {
+                var setting = new MigrationSetting();
                 MigrationManager.Run();
                 Console.WriteLine("Completed!");
             }
