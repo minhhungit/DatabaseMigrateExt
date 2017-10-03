@@ -13,14 +13,14 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 
 
 ## Config
+
 ```xml
 <add key="mgr:DatabaseKeys"     value="MovieStore, InventoryDb"/>
 <add key="mgr:RootNamespace"    value="DatabaseMigrateRunner.Migrations"/>
 
-<add key="mgr:MovieStore_ConnString"    value="Data Source=.\MSSQL2014;Initial Catalog=FirstDb;User ID=u;Password=p;Connection Timeout=6000;"/>
-<add key="mgr:InventoryDb_ConnString"   value="Data Source=.\MSSQL2014;Initial Catalog=SecondDb;User ID=u;Password=p;Connection Timeout=6000;"/>
+<add key="mgr:MovieStore_ConnString"    value="ConnectionString_Is_Here"/>
+<add key="mgr:InventoryDb_ConnString"   value="ConnectionString_Is_Here"/>
 ```
-
 
 ## Migration Scripts
 *Migration structure:*
@@ -52,20 +52,12 @@ namespace DatabaseMigrateRunner.Migrations.MovieStore
 ## Run
 ```c#
 using DatabaseMigrateExt;
-using DatabaseMigrateExt.Models;
 .
 .
 static void Main(string[] args)
 {
-    var databaseKeys = new List<string> { "MovieStore", "InventoryDb" };
-
-    // OR load values from AppSetting
-    // databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"].Split(',').Select(p => p.Trim()).ToList();
-
-    var setting = new MigrationSetting(databaseKeys);
-
-    // start
-    MigrationManager.Run(setting);
+    // Run migration with default settings
+    MigrationManager.Run();
 
     Console.WriteLine("Completed!");
     Console.ReadKey();

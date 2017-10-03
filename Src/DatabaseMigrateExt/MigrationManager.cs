@@ -19,6 +19,14 @@ namespace DatabaseMigrateExt
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MigrationManager));
 
         /// <summary>
+        ///  Run migration for all database and default settings
+        /// </summary>
+        public static void Run()
+        {
+            Run(new MigrationSetting());
+        }
+
+        /// <summary>
         /// Run migration for all database and a specific migration direction (Up or Down)
         /// </summary>
         /// <param name="setting"></param>

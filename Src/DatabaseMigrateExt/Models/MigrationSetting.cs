@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 
@@ -22,9 +23,16 @@ namespace DatabaseMigrateExt.Models
             MigrationAssembly = migrationAssembly;
         }
 
-        public List<string> DatabaseKeys { get; set; }
+        public List<string> DatabaseKeys { get; set; } =
+            ConfigurationManager.AppSettings["mgr:DatabaseKeys"]
+                .Split(',')
+                .Select(p => p.Trim())
+                .ToList();
 
-        public List<DatabaseScriptType> AvailableLevels { get; set; } = Enum.GetValues(typeof(DatabaseScriptType)).OfType<DatabaseScriptType>().ToList();
+        public List<DatabaseScriptType> AvailableLevels { get; set; } =
+            Enum.GetValues(typeof(DatabaseScriptType))
+                .OfType<DatabaseScriptType>()
+                .ToList();
 
         public Assembly MigrationAssembly { get; set; } = Assembly.GetCallingAssembly();
     }
