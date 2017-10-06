@@ -1,12 +1,11 @@
 ﻿using FluentMigrator;
 using System;
-using DatabaseMigrateExt.Attributes;
-using DatabaseMigrateExt.Models;
+using DatabaseMigrateExt;
 using DatabaseMigrateExt.Utils;
 
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    [ExtMigration(author: "Hung Vo", scriptType: DatabaseScriptType.SqlStoredProcedure, year: 2017, month: 8, day: 7, hour: 14, minute: 01, second: 03)]
+    [ExtMigration("Hung Vo", DatabaseScriptType.SqlStoredProcedure, 2017, 8, 7, 14, 01, 03)]
     public class MovieStore_20170807_140103_create_stored : Migration
     {
         public override void Up()

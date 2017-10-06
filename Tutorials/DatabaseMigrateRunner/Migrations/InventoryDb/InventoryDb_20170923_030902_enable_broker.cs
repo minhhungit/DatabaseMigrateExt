@@ -1,5 +1,5 @@
 ﻿using System;
-using DatabaseMigrateExt.Attributes;
+using DatabaseMigrateExt;
 using DatabaseMigrateExt.Models;
 using FluentMigrator;
 

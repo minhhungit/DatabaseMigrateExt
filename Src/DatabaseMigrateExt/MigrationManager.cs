@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Common.Logging;
 using DatabaseMigrateExt.Models;
 using DatabaseMigrateExt.Utils;
@@ -17,13 +16,12 @@ namespace DatabaseMigrateExt
     public class MigrationManager
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MigrationManager));
-        private static Assembly _callingAssembly;
+
         /// <summary>
         ///  Run migration for all database and default settings
         /// </summary>
         public static void Run()
         {
-            _callingAssembly = Assembly.GetCallingAssembly();
             Run(new MigrationSetting());
         }
 
@@ -57,18 +55,7 @@ namespace DatabaseMigrateExt
             {
                 using (var sw = new StringWriter())
                 {
-                    var assemblyLocation = setting.MigrationAssembly;
-                    if (assemblyLocation.GetName().Name == "DatabaseMigrateExt")
-                    {
-                        assemblyLocation = _callingAssembly;
-                    }
-
-                    if (assemblyLocation == null)
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(assemblyLocation), assemblyLocation, null);
-                    }
-
-                    var runner = GetMigrationRunner(assemblyLocation, sw, dbContext);
+                    var runner = GetMigrationRunner(sw, dbContext, setting);
                     var migrations = runner.MigrationLoader.LoadMigrations();
 
                     foreach (var scriptType in setting.AvailableLevels)
@@ -92,9 +79,9 @@ namespace DatabaseMigrateExt
             foreach (var script in migrations)
             {
                 var migrateAttr =
-                    (Attributes.ExtMigrationAttribute)
+                    (ExtMigrationAttribute)
                     script.Value.Migration.GetType()
-                        .GetCustomAttributes(typeof(Attributes.ExtMigrationAttribute), false)
+                        .GetCustomAttributes(typeof(ExtMigrationAttribute), false)
                         .FirstOrDefault();
 
                 if (migrateAttr == null || migrateAttr.ScriptType != scriptType || runner.VersionLoader.VersionInfo.HasAppliedMigration(script.Value.Version))
@@ -114,7 +101,7 @@ namespace DatabaseMigrateExt
             }
         }
 
-        private static MigrationRunner GetMigrationRunner(Assembly migrationAssembly, StringWriter sw, MigrateDatabaseContext dbItem)
+        private static MigrationRunner GetMigrationRunner(StringWriter sw, MigrateDatabaseContext dbItem, MigrationSetting setting)
         {
             Announcer announcer = new TextWriterWithGoAnnouncer(sw) { ShowSql = true };
 
@@ -135,7 +122,11 @@ namespace DatabaseMigrateExt
 
             using (var processor = factory.Create(dbItem.ConnectionString, announcer, options))
             {
-                return new MigrationRunner(migrationAssembly, runnerCtx, processor);
+                return new MigrationRunner(
+                    setting.MigrationAssembly != null
+                        ? setting.MigrationAssembly
+                        : MigrationBaseSetting.DefaultMigrationAssembly()
+                    , runnerCtx, processor);
             }
         }
     }
