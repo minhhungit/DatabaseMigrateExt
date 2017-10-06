@@ -16,7 +16,7 @@ namespace DatabaseMigrateExt.Models
         {
             DatabaseKeys = databaseKeys;
         }
-
+        
         public MigrationSetting(List<string> databaseKeys, Assembly migrationAssembly)
         {
             DatabaseKeys = databaseKeys;
@@ -34,6 +34,6 @@ namespace DatabaseMigrateExt.Models
                 .OfType<DatabaseScriptType>()
                 .ToList();
 
-        public Assembly MigrationAssembly { get; set; } = Assembly.GetCallingAssembly();
+        public Assembly MigrationAssembly { get; set; }
     }
 }

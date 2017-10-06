@@ -1,6 +1,5 @@
 ﻿using System;
-using DatabaseMigrateExt.Attributes;
-using DatabaseMigrateExt.Models;
+using DatabaseMigrateExt;
 using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.InventoryDb

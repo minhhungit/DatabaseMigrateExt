@@ -31,8 +31,7 @@ namespace DatabaseMigrateExt.Models
             }
         }
 
-        public string RootNamespace => ConfigurationManager.AppSettings["mgr:RootNamespace"];
-        public string CurrentDatabsaeNamespace => $"{RootNamespace}.{DatabaseKey}";
+        public string CurrentDatabsaeNamespace => $"{MigrationBaseSetting.RootNamespace}.{DatabaseKey}";
 
         public string SqlArchitectureRefScriptNamespace     => $"{CurrentDatabsaeNamespace}._RefScript.DataAndStructure";
         public string SqlFunctionRefScriptNamespace         => $"{CurrentDatabsaeNamespace}._RefScript.Function";

@@ -1,7 +1,6 @@
-﻿using DatabaseMigrateExt.Models;
-using FluentMigrator;
+﻿using FluentMigrator;
 
-namespace DatabaseMigrateExt.Attributes
+namespace DatabaseMigrateExt
 {
     public class ExtMigrationAttribute : MigrationAttribute
     {
@@ -18,14 +17,14 @@ namespace DatabaseMigrateExt.Attributes
             UseTransaction = useTransaction;
         }
 
-        public ExtMigrationAttribute(DatabaseScriptType scriptType, int year, int month, int day, int hour, int minute, int second, string author)
+        public ExtMigrationAttribute(string author, DatabaseScriptType scriptType, int year, int month, int day, int hour, int minute, int second)
            : base(CalculateValue(scriptType, year, month, day, hour, minute, second))
         {
             ScriptType = scriptType;
             Author = author;
         }
 
-        public ExtMigrationAttribute(DatabaseScriptType scriptType, int year, int month, int day, int hour, int minute, int second, string author, bool useTransaction)
+        public ExtMigrationAttribute(string author, DatabaseScriptType scriptType, int year, int month, int day, int hour, int minute, int second, bool useTransaction)
            : base(CalculateValue(scriptType, year, month, day, hour, minute, second))
         {
             ScriptType = scriptType;

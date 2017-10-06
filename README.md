@@ -9,17 +9,16 @@ A new way, new rule to work with MSSQL database version use fluent migrator
 
 ## Sample Project
 
-See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials/DatabaseMigrateRunner) at [https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials/DatabaseMigrateRunner](https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials/DatabaseMigrateRunner)
+See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials) at [https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials](https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials)
 
 
 ## Config
 
 ```xml
 <add key="mgr:DatabaseKeys"     value="MovieStore, InventoryDb"/>
-<add key="mgr:RootNamespace"    value="DatabaseMigrateRunner.Migrations"/>
 
-<add key="mgr:MovieStore_ConnString"    value="ConnectionString_Is_Here"/>
-<add key="mgr:InventoryDb_ConnString"   value="ConnectionString_Is_Here"/>
+<add key="mgr:MovieStore_ConnString"    value="ConnectionString_For_MovieStore"/>
+<add key="mgr:InventoryDb_ConnString"   value="ConnectionString_For_Inventory"/>
 ```
 
 ## Migration Scripts
@@ -33,7 +32,9 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 
 > Note: System will find all migrations which used **ExtMigration** attribute to apply
 
-```c#
+```csharp
+using DatabaseMigrateExt;
+
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
     [ExtMigration(DatabaseScriptType.SqlDataAndStructure, 2017, 9, 22, 02, 08, 01)]
@@ -47,13 +48,15 @@ namespace DatabaseMigrateRunner.Migrations.MovieStore
     }
 }
 ```
-
+You also can define author on attribute, like this:
+```csharp
+[ExtMigration("Hung Vo", DatabaseScriptType.SqlStoredProcedure, 2017, 8, 7, 14, 01, 03)]
+```
 
 ## Run
-```c#
+```csharp
 using DatabaseMigrateExt;
-.
-.
+
 static void Main(string[] args)
 {
     // Run migration with default settings
