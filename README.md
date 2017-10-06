@@ -16,6 +16,7 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 
 ```xml
 <add key="mgr:DatabaseKeys"     value="MovieStore, InventoryDb"/>
+<add key="mgr:RootNamespace"    value="DatabaseMigrateRunner.Migrations"/>
 
 <add key="mgr:MovieStore_ConnString"    value="ConnectionString_For_MovieStore"/>
 <add key="mgr:InventoryDb_ConnString"   value="ConnectionString_For_Inventory"/>
