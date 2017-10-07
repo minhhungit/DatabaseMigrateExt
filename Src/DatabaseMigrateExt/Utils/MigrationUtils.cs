@@ -1,5 +1,4 @@
-﻿using DatabaseMigrateExt.Models;
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace DatabaseMigrateExt.Utils
 {

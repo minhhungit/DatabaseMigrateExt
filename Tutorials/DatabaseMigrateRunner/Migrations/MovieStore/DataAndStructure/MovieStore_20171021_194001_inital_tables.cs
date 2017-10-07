@@ -4,7 +4,7 @@ using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    [ExtMigration(DatabaseScriptType.SqlDataAndStructure, 2017, 10, 21, 19, 40, 01)]
+    [ExtMgrDataStructure("Hung Vo", 2017, 10, 21, 19, 40, 01)]
     public class MovieStore_20171021_194001_inital_tables : Migration
     {
         public override void Up()
@@ -45,6 +45,6 @@ namespace DatabaseMigrateRunner.Migrations.MovieStore
         public override void Down()
         {
             throw new NotImplementedException();
-        }        
+        }
     }
 }

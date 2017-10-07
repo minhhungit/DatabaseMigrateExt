@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DatabaseMigrateExt</RootNamespace>
     <AssemblyName>DatabaseMigrateExt</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,12 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtMigrationAttribute.cs" />
-    <Compile Include="MigrationBaseSetting.cs" />
+    <Compile Include="Attributes\BaseExtMgrAttribute.cs" />
+    <Compile Include="Attributes\ExtMgrDataStructureAttribute.cs" />
+    <Compile Include="Attributes\ExtMgrFunctionAttribute.cs" />
+    <Compile Include="Attributes\ExtMgrStoredProcedureAttribute.cs" />
     <Compile Include="DatabaseScriptType.cs" />
-    <Compile Include="Models\MigrateDatabaseContext.cs" />
-    <Compile Include="MigrationManager.cs" />
-    <Compile Include="Models\MigrationSetting.cs" />
+    <Compile Include="ExtMigrationRunner.cs" />
+    <Compile Include="ExtMigrationRunnerExtensions.cs" />
+    <Compile Include="MigrateDatabaseContext.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="Utils\MigrationUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
