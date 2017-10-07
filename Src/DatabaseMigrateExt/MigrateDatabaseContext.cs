@@ -1,12 +1,18 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data.SqlClient;
 
-namespace DatabaseMigrateExt.Models
+namespace DatabaseMigrateExt
 {
     public class MigrateDatabaseContext
     {
         public MigrateDatabaseContext(string rootNamespace, string databaseKey)
         {
+            if (string.IsNullOrWhiteSpace(rootNamespace) || string.IsNullOrWhiteSpace(databaseKey))
+            {
+                throw new ArgumentException("<rootNamespace> or <databaseKey> should not null or empty");
+            }
+
             RootNamespace = rootNamespace;
             DatabaseKey = databaseKey;
         }

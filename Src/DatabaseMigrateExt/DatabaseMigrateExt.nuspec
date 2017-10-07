@@ -20,7 +20,6 @@
         <dependency id="FluentMigrator.Runner" version="1.6.2" />
         <dependency id="Common.Logging" version="3.4.1" />
         <dependency id="Common.Logging.Core" version="3.4.1" />
-        <dependency id="Microsoft.CSharp" version="4.0.1" />
       </group>      
     </dependencies>
   </metadata>
