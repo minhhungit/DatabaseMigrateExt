@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
@@ -30,7 +29,7 @@ namespace DatabaseMigrateExt.Models
                 .ToList();
 
         public List<DatabaseScriptType> AvailableLevels { get; set; } =
-            Enum.GetValues(typeof(DatabaseScriptType))
+            System.Enum.GetValues(typeof(DatabaseScriptType))
                 .OfType<DatabaseScriptType>()
                 .ToList();
 

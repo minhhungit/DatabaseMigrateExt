@@ -7,14 +7,14 @@ namespace DatabaseMigrateExt
 {
     public class MigrationBaseSetting
     {
-        public static string RootNamespace => ConfigurationManager.AppSettings["mgr:RootNamespace"];
+        internal static string RootNamespace => ConfigurationManager.AppSettings["mgr:RootNamespace"];
 
-        public static Assembly DefaultMigrationAssembly()
+        internal static Assembly DefaultMigrationAssembly()
         {
             var usedAttrAssemblies = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(assy => assy != typeof(ExtMigrationAttribute).Assembly)
+                .Where(assy => assy != typeof(MigrationManager).Assembly)
                 .FirstOrDefault(assy => assy.GetTypes()
-                    .Select(type => Attribute.IsDefined(type, typeof(ExtMigrationAttribute)))
+                    .Select(type => Attribute.IsDefined(type, typeof(BaseExtMgrAttribute)))
                     .Any(x => x));
 
             if (usedAttrAssemblies != null)

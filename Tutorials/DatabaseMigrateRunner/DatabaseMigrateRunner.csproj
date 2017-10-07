@@ -82,9 +82,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\InventoryDb\%40RefScript\DataAndStructure\" />
-    <Folder Include="Migrations\InventoryDb\%40RefScript\Function\" />
-    <Folder Include="Migrations\InventoryDb\%40RefScript\Stored\" />
     <Folder Include="Migrations\MovieStore\%40RefScript\DataAndStructure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

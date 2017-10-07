@@ -10,10 +10,10 @@
     <projectUrl>https://github.com/minhhungit/DatabaseMigrateExt</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Icon/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Config default migration assembly</description>
-    <releaseNotes>Revert Down migration feature, we won't support it anymore</releaseNotes>
+    <description>A new way, new rule to work with MSSQL database version use fluent migrator</description>
+    <releaseNotes>Optimize, clean code, use new migration attributes</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>fluentmigrator magration fluent migrator database version schema mssql migrate</tags>
+    <tags>fluentmigrator migration fluent migrator database version schema mssql migrate</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
         <dependency id="FluentMigrator" version="1.6.2" />

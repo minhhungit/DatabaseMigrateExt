@@ -31,10 +31,11 @@ namespace DatabaseMigrateExt.Models
             }
         }
 
-        public string CurrentDatabsaeNamespace => $"{MigrationBaseSetting.RootNamespace}.{DatabaseKey}";
+        public string CurrentDatabaseNamespace => $"{MigrationBaseSetting.RootNamespace}.{DatabaseKey}";
+        public string CurrentRefScriptNamespace => $"{MigrationBaseSetting.RootNamespace}.{DatabaseKey}._RefScript";
 
-        public string SqlArchitectureRefScriptNamespace     => $"{CurrentDatabsaeNamespace}._RefScript.DataAndStructure";
-        public string SqlFunctionRefScriptNamespace         => $"{CurrentDatabsaeNamespace}._RefScript.Function";
-        public string SqlStoredRefScriptNamespace           => $"{CurrentDatabsaeNamespace}._RefScript.Stored";
+        public string SqlArchitectureRefScriptNamespace     => $"{CurrentRefScriptNamespace}.DataAndStructure";
+        public string SqlFunctionRefScriptNamespace         => $"{CurrentRefScriptNamespace}.Function";
+        public string SqlStoredRefScriptNamespace           => $"{CurrentRefScriptNamespace}.Stored";
     }
 }

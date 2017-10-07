@@ -5,7 +5,7 @@ using DatabaseMigrateExt.Utils;
 
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    [ExtMigration("Hung Vo", DatabaseScriptType.SqlFunction , 2017, 9, 22, 8, 30, 01)]
+    [ExtMgrFunction(2017, 9, 22, 8, 30, 01)]
     public class MovieStore_20170922_083001_create_functions : Migration
     {
         public override void Up()

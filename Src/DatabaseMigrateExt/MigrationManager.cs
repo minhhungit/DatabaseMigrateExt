@@ -73,20 +73,43 @@ namespace DatabaseMigrateExt
             }
         }
 
-        private static void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType)
+        static void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType)
         {
             var printAtStart = false;
             foreach (var script in migrations)
             {
-                var migrateAttr =
-                    (ExtMigrationAttribute)
+                 var migrateAttr =
                     script.Value.Migration.GetType()
-                        .GetCustomAttributes(typeof(ExtMigrationAttribute), false)
+                        .GetCustomAttributes(typeof(BaseExtMgrAttribute), false)
                         .FirstOrDefault();
 
-                if (migrateAttr == null || migrateAttr.ScriptType != scriptType || runner.VersionLoader.VersionInfo.HasAppliedMigration(script.Value.Version))
+                if (migrateAttr == null  ||runner.VersionLoader.VersionInfo.HasAppliedMigration(script.Value.Version))
                 {
                     continue;
+                }
+
+                switch (scriptType)
+                {
+                    case DatabaseScriptType.SqlDataAndStructure:
+                        if (!(migrateAttr is ExtMgrDataStructureAttribute))
+                        {
+                            continue;
+                        }
+                        break;
+                    case DatabaseScriptType.SqlFunction:
+                        if (!(migrateAttr is ExtMgrFunctionAttribute))
+                        {
+                            continue;
+                        }
+                        break;
+                    case DatabaseScriptType.SqlStoredProcedure:
+                        if (!(migrateAttr is ExtMgrStoredProcedureAttribute))
+                        {
+                            continue;
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(scriptType), scriptType, null);
                 }
 
                 if (!printAtStart)
@@ -95,9 +118,9 @@ namespace DatabaseMigrateExt
                     printAtStart = true;
                 }
 
-                Logger.InfoFormat($"   - Ver: {script.Value.Version} - {script.Value.Migration.GetType().Name} {(!migrateAttr.UseTransaction ? " -noTrans" : string.Empty)}");
+                Logger.InfoFormat($"   - Ver: {script.Value.Version} - {script.Value.Migration.GetType().Name} {(!((BaseExtMgrAttribute)migrateAttr).UseTransaction ? " -noTrans" : string.Empty)}");
 
-                runner.ApplyMigrationUp(script.Value, migrateAttr.UseTransaction);
+                runner.ApplyMigrationUp(script.Value, ((BaseExtMgrAttribute)migrateAttr).UseTransaction);
             }
         }
 
@@ -110,12 +133,12 @@ namespace DatabaseMigrateExt
                 ApplicationContext = dbItem
             };
 
-            if (string.IsNullOrWhiteSpace(dbItem.CurrentDatabsaeNamespace))
+            if (string.IsNullOrWhiteSpace(dbItem.CurrentDatabaseNamespace))
             {
                 throw new ArgumentOutOfRangeException(nameof(dbItem), dbItem, null);
             }
 
-            runnerCtx.Namespace = dbItem.CurrentDatabsaeNamespace;
+            runnerCtx.Namespace = dbItem.CurrentDatabaseNamespace;
 
             var options = new ProcessorOptions { PreviewOnly = false, Timeout = dbItem.ConnectionTimeout };
             var factory = new FluentMigrator.Runner.Processors.SqlServer.SqlServer2014ProcessorFactory();

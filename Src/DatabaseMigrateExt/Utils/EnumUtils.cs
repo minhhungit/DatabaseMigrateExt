@@ -1,11 +1,10 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace DatabaseMigrateExt.Utils
 {
     public static class EnumUtils
     {
-        public static string GetEnumDescription(this Enum enumeratedType)
+        public static string GetEnumDescription(this System.Enum enumeratedType)
         {
             var description = enumeratedType.ToString();
 
