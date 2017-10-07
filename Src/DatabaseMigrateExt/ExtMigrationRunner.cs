@@ -45,7 +45,6 @@ namespace DatabaseMigrateExt
                         runner.DatabaseKeys.Add(i, databaseKeyArr[i].Trim());
                     }
                 }
-
             }
 
             #endregion
