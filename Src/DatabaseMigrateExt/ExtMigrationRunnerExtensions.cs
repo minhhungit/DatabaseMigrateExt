@@ -199,7 +199,7 @@ namespace DatabaseMigrateExt
 
                     Logger.InfoFormat($"   - {script.Value.Version} - {script.Value.Migration.GetType().Name} {(!((BaseExtMgrAttribute)migrateAttr).UseTransaction ? " -noTrans" : string.Empty)}");
 
-                    //migRunner.ApplyMigrationUp(script.Value, ((BaseExtMgrAttribute)migrateAttr).UseTransaction);
+                    migRunner.ApplyMigrationUp(script.Value, ((BaseExtMgrAttribute)migrateAttr).UseTransaction);
                 }
             }
         }
