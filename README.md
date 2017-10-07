@@ -68,7 +68,7 @@ using DatabaseMigrateExt;
 static void Main(string[] args)
 {
     // Run migration with default settings
-    MigrationManager.Run();
+    new MigrationManager().Run();
 
     Console.WriteLine("Completed!");
     Console.ReadKey();

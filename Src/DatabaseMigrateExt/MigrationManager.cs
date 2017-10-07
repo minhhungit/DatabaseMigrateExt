@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Common.Logging;
 using DatabaseMigrateExt.Models;
 using DatabaseMigrateExt.Utils;
@@ -16,54 +17,56 @@ namespace DatabaseMigrateExt
     public class MigrationManager
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MigrationManager));
+        private static readonly Assembly DefaultMigrationAssembly = GetDefaultMigrationAssembly();
+        public MigrationSetting Settings { get; set; }
 
-        /// <summary>
-        ///  Run migration for all database and default settings
-        /// </summary>
-        public static void Run()
+        public MigrationManager()
         {
-            Run(new MigrationSetting());
+            Settings = new MigrationSetting();
+        }
+
+        public MigrationManager(MigrationSetting setting)
+        {
+            Settings = setting;
         }
 
         /// <summary>
-        /// Run migration for all database and a specific migration direction (Up or Down)
+        /// Run migration for all database
         /// </summary>
-        /// <param name="setting"></param>
-        public static void Run(MigrationSetting setting)
+        public void Run()
         {
             Logger.InfoFormat($"Start...{Environment.NewLine}");
 
-            var migrationDatabases = setting.DatabaseKeys.Select(dbKey => new MigrateDatabaseContext(dbKey)).ToList();
+            var migrationDatabases = Settings.DatabaseKeys.Select(dbKey => new MigrateDatabaseContext(Settings.RootNamespace, dbKey)).ToList();
 
             foreach (var dbContext in migrationDatabases)
             {
                 Logger.InfoFormat($"DATEBASE: {dbContext.DatabaseKey} ({dbContext.DatabaseName})");
-                Run(setting, dbContext);
+                Run(dbContext);
             }
 
             Logger.InfoFormat("All done!");
         }
 
         /// <summary>
-        /// Run migration for a specific database and a specific migration direction
+        /// Run migration for specific database
         /// </summary>
-        /// <param name="setting"></param>
         /// <param name="dbContext"></param>
-        public static void Run(MigrationSetting setting, MigrateDatabaseContext dbContext)
+        public void Run(MigrateDatabaseContext dbContext)
         {
             try
             {
                 using (var sw = new StringWriter())
                 {
-                    var runner = GetMigrationRunner(sw, dbContext, setting);
+                    var runner = GetMigrationRunner(sw, dbContext);
                     var migrations = runner.MigrationLoader.LoadMigrations();
 
-                    foreach (var scriptType in setting.AvailableLevels)
+                    foreach (var scriptType in Settings.AvailableLevels)
                     {
                         ValidateAndRunMigrations(runner, migrations, scriptType);
                     }
                 }
-                Logger.InfoFormat(" -> done");
+                Logger.InfoFormat("   -> done");
                 Logger.InfoFormat(Environment.NewLine);
             }
             catch (Exception ex)
@@ -73,12 +76,17 @@ namespace DatabaseMigrateExt
             }
         }
 
-        static void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType)
+        private void ValidateAndRunMigrations(MigrationRunner runner, SortedList<long, IMigrationInfo> migrations, DatabaseScriptType scriptType)
         {
             var printAtStart = false;
             foreach (var script in migrations)
             {
-                 var migrateAttr =
+                if (!script.Value.Version.ToString().StartsWith(((int)scriptType).ToString()))
+                {
+                    continue;
+                }
+
+                var migrateAttr =
                     script.Value.Migration.GetType()
                         .GetCustomAttributes(typeof(BaseExtMgrAttribute), false)
                         .FirstOrDefault();
@@ -124,7 +132,7 @@ namespace DatabaseMigrateExt
             }
         }
 
-        private static MigrationRunner GetMigrationRunner(StringWriter sw, MigrateDatabaseContext dbItem, MigrationSetting setting)
+        private MigrationRunner GetMigrationRunner(StringWriter sw, MigrateDatabaseContext dbItem)
         {
             Announcer announcer = new TextWriterWithGoAnnouncer(sw) { ShowSql = true };
 
@@ -146,11 +154,26 @@ namespace DatabaseMigrateExt
             using (var processor = factory.Create(dbItem.ConnectionString, announcer, options))
             {
                 return new MigrationRunner(
-                    setting.MigrationAssembly != null
-                        ? setting.MigrationAssembly
-                        : MigrationBaseSetting.DefaultMigrationAssembly()
+                    Settings.MigrationAssembly != null
+                        ? Settings.MigrationAssembly
+                        : DefaultMigrationAssembly
                     , runnerCtx, processor);
             }
+        }
+
+        private static Assembly GetDefaultMigrationAssembly()
+        {
+            var usedAttrAssemblies = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(assy => assy != typeof(MigrationManager).Assembly)
+                .FirstOrDefault(assy => assy.GetTypes()
+                    .Select(type => Attribute.IsDefined(type, typeof(BaseExtMgrAttribute)))
+                    .Any(x => x));
+
+            if (usedAttrAssemblies != null)
+            {
+                return usedAttrAssemblies;
+            }
+            throw new TypeLoadException("Can not load migration assembly");
         }
     }
 }

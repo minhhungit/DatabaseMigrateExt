@@ -5,12 +5,15 @@ namespace DatabaseMigrateExt.Models
 {
     public class MigrateDatabaseContext
     {
-        public MigrateDatabaseContext(string databaseKey)
+        public MigrateDatabaseContext(string rootNamespace, string databaseKey)
         {
+            RootNamespace = rootNamespace;
             DatabaseKey = databaseKey;
         }
 
+        public string RootNamespace { get; set; }
         public string DatabaseKey { get; set; }
+
         public string ConnectionString => ConfigurationManager.AppSettings[$"mgr:{DatabaseKey}_ConnString"];
 
         public string DatabaseName
@@ -31,8 +34,8 @@ namespace DatabaseMigrateExt.Models
             }
         }
 
-        public string CurrentDatabaseNamespace => $"{MigrationBaseSetting.RootNamespace}.{DatabaseKey}";
-        public string CurrentRefScriptNamespace => $"{MigrationBaseSetting.RootNamespace}.{DatabaseKey}._RefScript";
+        public string CurrentDatabaseNamespace => $"{RootNamespace}.{DatabaseKey}";
+        public string CurrentRefScriptNamespace => $"{RootNamespace}.{DatabaseKey}._RefScript";
 
         public string SqlArchitectureRefScriptNamespace     => $"{CurrentRefScriptNamespace}.DataAndStructure";
         public string SqlFunctionRefScriptNamespace         => $"{CurrentRefScriptNamespace}.Function";

@@ -22,6 +22,8 @@ namespace DatabaseMigrateExt.Models
             MigrationAssembly = migrationAssembly;
         }
 
+        public string RootNamespace { get; set; } = ConfigurationManager.AppSettings["mgr:RootNamespace"];
+
         public List<string> DatabaseKeys { get; set; } =
             ConfigurationManager.AppSettings["mgr:DatabaseKeys"]
                 .Split(',')

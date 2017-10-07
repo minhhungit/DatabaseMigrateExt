@@ -9,7 +9,10 @@ namespace DatabaseMigrateRunner
         {
             try
             {
-                MigrationManager.Run();
+                var migrator = new MigrationManager();
+                // migrator.Settings = [...]
+
+                migrator.Run();
                 Console.WriteLine("Completed!");
             }
             catch (Exception ex)
