@@ -27,36 +27,43 @@ namespace DatabaseMigrateExt
             return runner;
         }
         
-        public static ExtMigrationRunner ForDatabases(this ExtMigrationRunner runner, List<string> databaseKeys)
+        public static ExtMigrationRunner ForDatabases(this ExtMigrationRunner runner, SortedList<int, string> databaseKeys)
         {
             if (databaseKeys == null)
             {
                 throw new ArgumentException("<databaseKeys> should not null");
             }
 
-            runner.DatabaseKeys = new List<string>();
+            runner.DatabaseKeys = new SortedList<int, string>();
 
             if (databaseKeys.Any())
             {
-                runner.DatabaseKeys.AddRange(databaseKeys);
+                foreach (var item in databaseKeys)
+                {
+                    runner.DatabaseKeys.Add(item.Key, item.Value);
+                }
+                
             }
 
             return runner;
         }
 
 
-        public static ExtMigrationRunner ForDatabaseLayers(this ExtMigrationRunner runner, List<DatabaseScriptType> layers)
+        public static ExtMigrationRunner ForDatabaseLayers(this ExtMigrationRunner runner, SortedList<int, DatabaseScriptType> layers)
         {
             if (layers == null)
             {
                 throw new ArgumentException("<layers> should not null");
             }
 
-            runner.DatabaseLayers = new List<DatabaseScriptType>();
+            runner.DatabaseLayers = new SortedList<int, DatabaseScriptType>();
 
             if (layers.Any())
             {
-                runner.DatabaseLayers.AddRange(layers);
+                foreach (var item in layers)
+                {
+                    runner.DatabaseLayers.Add(item.Key, item.Value);
+                }
             }
             
             return runner;
@@ -86,19 +93,9 @@ namespace DatabaseMigrateExt
                 throw new ArgumentNullException(nameof(runner.DatabaseKeys), "Value should not null");
             }
 
-            if (runner.DatabaseLayers == null)
-            {
-                throw new ArgumentNullException(nameof(runner.DatabaseLayers), "Value should not null");
-            }
-
-            if (runner.MigrationAssembly == null)
-            {
-                throw new ArgumentNullException(nameof(runner.MigrationAssembly), "Value should not null");
-            }
-
             #endregion
             
-            var migrationDatabases = runner.DatabaseKeys.Select(dbKey => new MigrateDatabaseContext(runner.RootNamespace, dbKey)).ToList();
+            var migrationDatabases = runner.DatabaseKeys.Select(dbKey => new MigrateDatabaseContext(runner.RootNamespace, dbKey.Value)).ToList();
 
             foreach (var dbContext in migrationDatabases)
             {
@@ -132,7 +129,7 @@ namespace DatabaseMigrateExt
             {
                 foreach (var scriptType in runner.DatabaseLayers)
                 {
-                    ValidateAndRunMigrations(dbContext, scriptType, runner.MigrationAssembly);
+                    ValidateAndRunMigrations(dbContext, scriptType.Value, runner.MigrationAssembly);
                 }
 
                 Logger.InfoFormat($"=> [{dbContext.DatabaseKey}] is done");
