@@ -26,9 +26,9 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 ***ExtMigration Attributes:***
 
 Right now we just support these attributes:
-- Use `ExtMgrDataStructure` to assign `structure` or `data` migrations.
-- Use `ExtMgrFunction` to assign `function` migrations.
-- Use `ExtMgrStoredProcedure` to assign `stored procedure` migrations.
+- Use `ExtMgrDataStructure` for `structure` or `data` migrations.
+- Use `ExtMgrFunction` for `function` migrations.
+- Use `ExtMgrStoredProcedure` for `stored procedure` migrations.
 
 ***Migration structure:***
 > Note: You can place migration class in everywhere as long as it is placed under namespace of database.
@@ -38,7 +38,7 @@ Right now we just support these attributes:
 
 
 ***Sample script:*** 
-> Note: System will just find migration scripts which used **ExtMigration Attributes** attributes to apply
+> Note: System will just find migration scripts which used **ExtMigration Attributes** to apply
 
 ```csharp
 using DatabaseMigrateExt;
