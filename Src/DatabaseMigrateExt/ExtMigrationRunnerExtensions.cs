@@ -56,13 +56,13 @@ namespace DatabaseMigrateExt
                 throw new ArgumentException("<layers> should not null");
             }
 
-            runner.DatabaseLayers = new SortedList<int, DatabaseScriptType>();
+            runner.DatabaseScriptTypes = new SortedList<int, DatabaseScriptType>();
 
             if (layers.Any())
             {
                 foreach (var item in layers)
                 {
-                    runner.DatabaseLayers.Add(item.Key, item.Value);
+                    runner.DatabaseScriptTypes.Add(item.Key, item.Value);
                 }
             }
             
@@ -113,9 +113,9 @@ namespace DatabaseMigrateExt
             Logger.InfoFormat($"DATEBASE: {dbContext.DatabaseKey} ({dbContext.DatabaseName})");
             #region Check settings
 
-            if (runner.DatabaseLayers == null)
+            if (runner.DatabaseScriptTypes == null)
             {
-                throw new ArgumentNullException(nameof(runner.DatabaseLayers), "Value should not null");
+                throw new ArgumentNullException(nameof(runner.DatabaseScriptTypes), "Value should not null");
             }
 
             if (runner.MigrationAssembly == null)
@@ -127,7 +127,7 @@ namespace DatabaseMigrateExt
 
             try
             {
-                foreach (var scriptType in runner.DatabaseLayers)
+                foreach (var scriptType in runner.DatabaseScriptTypes)
                 {
                     ValidateAndRunMigrations(dbContext, scriptType.Value, runner.MigrationAssembly);
                 }

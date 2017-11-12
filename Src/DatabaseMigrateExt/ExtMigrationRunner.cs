@@ -10,8 +10,19 @@ namespace DatabaseMigrateExt
     {
         internal string RootNamespace { get; set; }
         internal SortedList<int, string> DatabaseKeys { get; set; } = new SortedList<int, string>();
-        internal SortedList<int, DatabaseScriptType> DatabaseLayers { get; set; } = new SortedList<int, DatabaseScriptType>();
+        internal SortedList<int, DatabaseScriptType> DatabaseScriptTypes { get; set; } = new SortedList<int, DatabaseScriptType>();
         internal Assembly MigrationAssembly { get; set; }
+
+        public ExtMigrationRunnerContext GetRunnerContext()
+        {
+            return new ExtMigrationRunnerContext
+            {
+                RootNamespace = this.RootNamespace,
+                DatabaseKeys = this.DatabaseKeys,
+                DatabaseScriptTypes = this.DatabaseScriptTypes,
+                MigrationAssembly = this.MigrationAssembly
+            };
+        }
 
         /// <summary>
         /// Initialize default settings
@@ -51,9 +62,9 @@ namespace DatabaseMigrateExt
 
             #region Initialize DatabaseLayers
 
-            if (runner.DatabaseLayers == null)
+            if (runner.DatabaseScriptTypes == null)
             {
-                runner.DatabaseLayers = new SortedList<int, DatabaseScriptType>();
+                runner.DatabaseScriptTypes = new SortedList<int, DatabaseScriptType>();
             }
 
             var layers = Enum.GetValues(typeof(DatabaseScriptType))
@@ -61,7 +72,7 @@ namespace DatabaseMigrateExt
 
             foreach (var layer in layers)
             {
-                runner.DatabaseLayers.Add((int)layer, layer);
+                runner.DatabaseScriptTypes.Add((int)layer, layer);
             }
 
             #endregion

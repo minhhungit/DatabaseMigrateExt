@@ -58,6 +58,7 @@
     <Compile Include="Attributes\ExtMgrStoredProcedureAttribute.cs" />
     <Compile Include="DatabaseScriptType.cs" />
     <Compile Include="ExtMigrationRunner.cs" />
+    <Compile Include="ExtMigrationRunnerContext.cs" />
     <Compile Include="ExtMigrationRunnerExtensions.cs" />
     <Compile Include="MigrateDatabaseContext.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
