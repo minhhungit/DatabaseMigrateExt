@@ -2,10 +2,10 @@
 using DatabaseMigrateExt;
 using FluentMigrator;
 
-namespace DatabaseMigrateRunner.Migrations.InventoryDb
+namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    [ExtMgrDataStructure("Hung Vo", 2017, 9, 23, 03, 09, 02, false)]
-    public class duplicate_version_script : Migration
+    [ExtMgrDataStructure(2017, 9, 23, 03, 09, 02)]
+    public class checkDuplicateScript : Migration
     {
         public override void Up()
         {

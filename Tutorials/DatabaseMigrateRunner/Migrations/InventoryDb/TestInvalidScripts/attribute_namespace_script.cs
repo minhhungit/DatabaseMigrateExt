@@ -9,11 +9,6 @@ namespace DatabaseMigrateRunner.Migrations.InventoryDb.Stored
     {
         public override void Up()
         {
-            var appContext = (MigrateDatabaseContext) this.ApplicationContext;
-            this.Execute.Sql($"ALTER DATABASE [{appContext.DatabaseName}] SET ENABLE_BROKER WITH ROLLBACK IMMEDIATE;");
-
-            // or
-            this.Execute.Sql(@"ALTER DATABASE CURRENT SET ENABLE_BROKER WITH ROLLBACK IMMEDIATE;");
         }
 
         public override void Down()

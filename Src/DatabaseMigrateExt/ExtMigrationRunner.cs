@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using Common.Logging;
+using FluentMigrator;
 
 namespace DatabaseMigrateExt
 {
     public class ExtMigrationRunner
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(ExtMigrationRunner));
+
         internal string RootNamespace { get; set; }
         internal SortedList<int, string> DatabaseKeys { get; set; } = new SortedList<int, string>();
         internal SortedList<int, DatabaseScriptType> DatabaseScriptTypes { get; set; } = new SortedList<int, DatabaseScriptType>();
@@ -92,7 +96,77 @@ namespace DatabaseMigrateExt
 
             #endregion
 
+            ShowValidateScripts(runner);
             return runner;
+        }
+
+        static void ShowValidateScripts(ExtMigrationRunner runner)
+        {
+            // warning invalid scripts
+            var invalidScripts = new List<KeyValuePair<Type, string>>();
+
+            var allScriptFiles = runner.MigrationAssembly.GetTypes()
+                .Where(type => type.IsSubclassOf(typeof(MigrationBase)))
+                .ToList();
+
+            var validNamespaces = new Dictionary<string, string>();
+            foreach (var dbKey in runner.DatabaseKeys)
+            {
+                if (!validNamespaces.ContainsKey(dbKey.Value))
+                {
+                    validNamespaces.Add(dbKey.Value, $"{runner.RootNamespace}.{dbKey.Value}");
+                }
+            }
+
+            var scriptVersions = new List<string>();
+            foreach (var script in allScriptFiles)
+            {
+                if (!validNamespaces.Values.Contains(script.Namespace))
+                {
+                    invalidScripts.Add(new KeyValuePair<Type, string>(script, "[INCORRECT NAMESPACE]"));
+                    continue;
+                }
+                else
+                {
+                    var dbKey = validNamespaces.First(x => x.Value == script.Namespace);
+
+                    if (!script.IsPublic)
+                    {
+                        invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[NOT PUBLIC - {{{dbKey.Key}}}]"));
+                        continue;
+                    }
+
+                    var migAttr = script.GetCustomAttributes(typeof(BaseExtMgrAttribute), false).FirstOrDefault();
+
+                    if (migAttr != null)
+                    {
+                        var key = $"{dbKey.Key}.{((BaseExtMgrAttribute)migAttr).Version}";
+
+                        if (scriptVersions.Contains(key))
+                        {
+                            invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[DUPLICATE VERSION - {{{dbKey.Key}}}]"));
+                            continue;
+                        }
+                        scriptVersions.Add(key);
+                    }
+                    else
+                    {
+                        invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[INCORRECT ATTRIBUTE - {{{dbKey.Key}}}]"));
+                        continue;
+                    }
+                }
+            }
+
+            if (invalidScripts.Any())
+            {
+                Logger.Info($"There are some invalid scripts:");
+                foreach (var item in invalidScripts.OrderBy(x => x.Key.Name))
+                {
+                    Logger.Info($"  > {item.Key.Name} {item.Value}");
+                }
+
+                Logger.Info("");
+            }
         }
     }
 }
