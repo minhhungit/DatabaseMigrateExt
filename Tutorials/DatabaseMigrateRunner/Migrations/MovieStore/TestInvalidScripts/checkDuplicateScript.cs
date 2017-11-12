@@ -9,7 +9,6 @@ namespace DatabaseMigrateRunner.Migrations.MovieStore
     {
         public override void Up()
         {
-            
         }
 
         public override void Down()

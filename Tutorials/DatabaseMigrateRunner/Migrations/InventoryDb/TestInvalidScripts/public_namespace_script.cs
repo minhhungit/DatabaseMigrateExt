@@ -9,7 +9,6 @@ namespace DatabaseMigrateRunner.Migrations.InventoryDb.Stored
     {
         public override void Up()
         {
-
         }
 
         public override void Down()

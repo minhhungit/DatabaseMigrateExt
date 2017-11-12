@@ -134,7 +134,6 @@ namespace DatabaseMigrateExt
                     {
                         invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[NOT PUBLIC - {{{dbKey.Key}}}]"));
                         continue;
-
                     }
 
                     var migAttr = script.GetCustomAttributes(typeof(BaseExtMgrAttribute), false).FirstOrDefault();
