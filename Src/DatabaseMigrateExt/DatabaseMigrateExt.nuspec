@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Icon/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A new way, new rule to work with MSSQL database version use fluent migrator</description>
-    <releaseNotes>Optimize, clean code, validate and use new migration attributes</releaseNotes>
+    <releaseNotes>Show a way to list invalid scripts before running migrator</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>fluentmigrator migration fluent migrator database version schema mssql migrate</tags>
     <dependencies>
