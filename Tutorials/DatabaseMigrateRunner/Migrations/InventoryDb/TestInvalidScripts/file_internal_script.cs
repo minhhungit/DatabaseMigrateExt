@@ -2,10 +2,10 @@
 using DatabaseMigrateExt;
 using FluentMigrator;
 
-namespace DatabaseMigrateRunner.Migrations.InventoryDb.Stored
+namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
-    [TimestampedMigration(2017, 9, 23, 03, 09, 02)]
-    public class public_attribute_namespace : Migration
+    [ExtMgrDataStructure("Hung Vo", 2017, 11, 13, 01, 05, 03, false)]
+    internal class file_internal_script : Migration
     {
         public override void Up()
         {

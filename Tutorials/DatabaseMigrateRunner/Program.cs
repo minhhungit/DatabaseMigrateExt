@@ -3,7 +3,6 @@ using DatabaseMigrateExt;
 using FluentMigrator;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace DatabaseMigrateRunner
@@ -88,31 +87,42 @@ namespace DatabaseMigrateRunner
         private static void ShowValidateScripts(ExtMigrationRunnerContext runnerCtx)
         {
             // warning invalid scripts
-            var invalidScripts = new List<Type>();
+            var invalidScripts = new List<KeyValuePair<Type, string>>();
 
             var allScriptFiles = runnerCtx.MigrationAssembly.GetTypes()
                 .Where(type => type.IsSubclassOf(typeof(MigrationBase))).ToList();
 
-            var validNamespaces = runnerCtx.DatabaseKeys.Select(x => $"{runnerCtx.RootNamespace}.{x.Value}");
+            var validNamespaces = runnerCtx.DatabaseKeys.Select(x => $"{runnerCtx.RootNamespace}.{x.Value}").ToList();
+            var scriptVersions = new List<long>();
             foreach (var script in allScriptFiles)
             {
                 if (!script.IsPublic)
                 {
-                    invalidScripts.Add(script);
+                    invalidScripts.Add(new KeyValuePair<Type, string>(script, "[NOT PUBLIC]"));
                     continue;
                 }
 
-                var attrs = script.GetCustomAttributes(typeof(BaseExtMgrAttribute), false);
-                if (attrs == null || !attrs.Any())
+                var attrs = script.GetCustomAttributes(typeof(BaseExtMgrAttribute), false).ToList();
+                var attrFirst = attrs.FirstOrDefault();
+                if (attrFirst is BaseExtMgrAttribute)
                 {
-                    invalidScripts.Add(script);
+                    if (scriptVersions.Contains(((BaseExtMgrAttribute)attrFirst).Version))
+                    {
+                        invalidScripts.Add(new KeyValuePair<Type, string>(script, "[DUPLICATE VERSION]"));
+                        continue;
+                    }
+                    scriptVersions.Add(((BaseExtMgrAttribute)attrFirst).Version);
+                }
+                else
+                {
+                    invalidScripts.Add(new KeyValuePair<Type, string>(script, "[INCORRECT ATTRIBUTE]"));
                     continue;
                 }
 
                 // check namespace by database
                 if (!validNamespaces.Contains(script.Namespace))
                 {
-                    invalidScripts.Add(script);
+                    invalidScripts.Add(new KeyValuePair<Type, string>(script, "[INCORRECT NAMESPACE]"));
                     continue;
                 }
             }
@@ -120,9 +130,9 @@ namespace DatabaseMigrateRunner
             if (invalidScripts.Any())
             {
                 Logger.Info($"There are some invalid scripts:");
-                foreach (var item in invalidScripts.OrderBy(x => x.Namespace))
+                foreach (var item in invalidScripts.OrderBy(x => x.Key.Name))
                 {
-                    Logger.Info($"  > {item.Name}");
+                    Logger.Info($"  > {item.Key.Name} {item.Value}");
                 }
 
                 Logger.Info("");

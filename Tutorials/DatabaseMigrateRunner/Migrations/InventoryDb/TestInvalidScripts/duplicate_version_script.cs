@@ -5,7 +5,7 @@ using FluentMigrator;
 namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
     [ExtMgrDataStructure("Hung Vo", 2017, 9, 23, 03, 09, 02, false)]
-    class private_classs : Migration
+    public class duplicate_version_script : Migration
     {
         public override void Up()
         {
