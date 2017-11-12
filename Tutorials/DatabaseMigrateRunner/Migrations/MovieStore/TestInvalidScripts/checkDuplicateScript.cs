@@ -2,14 +2,14 @@
 using DatabaseMigrateExt;
 using FluentMigrator;
 
-namespace DatabaseMigrateRunner.Migrations.InventoryDb.Stored
+namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    [ExtMgrDataStructure(2017, 11, 13, 01, 05, 07)]
-    public class public_namespace_script : Migration
+    [ExtMgrDataStructure(2017, 9, 23, 03, 09, 02)]
+    public class checkDuplicateScript : Migration
     {
         public override void Up()
         {
-
+            
         }
 
         public override void Down()
