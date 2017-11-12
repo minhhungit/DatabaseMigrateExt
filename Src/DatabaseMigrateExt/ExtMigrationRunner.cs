@@ -128,14 +128,15 @@ namespace DatabaseMigrateExt
                 }
                 else
                 {
+                    var dbKey = validNamespaces.First(x => x.Value == script.Namespace);
+
                     if (!script.IsPublic)
                     {
-                        invalidScripts.Add(new KeyValuePair<Type, string>(script, "[NOT PUBLIC]"));
+                        invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[NOT PUBLIC - {{{dbKey.Key}}}]"));
                         continue;
 
                     }
 
-                    var dbKey = validNamespaces.First(x => x.Value == script.Namespace);
                     var migAttr = script.GetCustomAttributes(typeof(BaseExtMgrAttribute), false).FirstOrDefault();
 
                     if (migAttr != null)
@@ -144,14 +145,14 @@ namespace DatabaseMigrateExt
 
                         if (scriptVersions.Contains(key))
                         {
-                            invalidScripts.Add(new KeyValuePair<Type, string>(script, "[DUPLICATE VERSION]"));
+                            invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[DUPLICATE VERSION - {{{dbKey.Key}}}]"));
                             continue;
                         }
                         scriptVersions.Add(key);
                     }
                     else
                     {
-                        invalidScripts.Add(new KeyValuePair<Type, string>(script, "[INCORRECT ATTRIBUTE]"));
+                        invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[INCORRECT ATTRIBUTE - {{{dbKey.Key}}}]"));
                         continue;
                     }
                 }
