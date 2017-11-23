@@ -1,9 +1,7 @@
 ﻿using Common.Logging;
 using DatabaseMigrateExt;
-using FluentMigrator;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DatabaseMigrateRunner
 {
@@ -23,15 +21,15 @@ namespace DatabaseMigrateRunner
             try
             {
                 #region Run migrate with default values
-
                 //ExtMigrationRunner.Initialize().Process();
+                //Console.ReadKey();
 
                 #endregion
 
                 #region Run migrate with custom values
 
-                //var runner = new ExtMigrationRunner();
-                //runner.ForDatabases(new SortedList<int, string> {{2, "MovieStore" }, {1, "InventoryDb" } });
+                //var runner = ExtMigrationRunner.Initialize();
+                //runner.ForDatabases(new SortedList<int, string> { { 1, "MovieStore" }, { 2, "InventoryDb" } });
                 //runner.ForRootNamespace("DatabaseMigrateRunner.Migrations");
                 //runner.ForDatabaseLayers(new SortedList<int, DatabaseScriptType>
                 //{
@@ -41,13 +39,14 @@ namespace DatabaseMigrateRunner
                 //});
                 //runner.ForMigrationAssembly(typeof(Program).Assembly);
                 //runner.Process();
+                //Console.ReadKey();
 
                 #endregion
 
-                #region Run migrate with some tricks
+                #region Run migrate with some tricks [THIS'S THE RECOMMENDED]
 
                 var runner = ExtMigrationRunner.Initialize();
- 
+
                 while (true)
                 {
                     Logger.Info("Do you really want to run <type 'yes' to run>: ");
@@ -55,12 +54,13 @@ namespace DatabaseMigrateRunner
                     if (!string.IsNullOrWhiteSpace(result))
                     {
                         Logger.Info("Your answer: " + result);
-
+                        Logger.Info("");
+                        Logger.Info("");
                         switch (result.ToLower().Trim())
                         {
                             case "ok":
                             case "yes":
-                                runner.Process();
+                                runner.Process(true);
                                 Logger.Info("Completed!");
                                 break;
                             case "exit":

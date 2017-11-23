@@ -1,5 +1,6 @@
 ﻿using System;
 using DatabaseMigrateExt;
+using DatabaseMigrateExt.Utils;
 using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.MovieStore
@@ -9,6 +10,10 @@ namespace DatabaseMigrateRunner.Migrations.MovieStore
     {
         public override void Up()
         {
+            // use sql script
+            this.ExecuteSqlStructure("v000001_inital_structure.sql");
+
+            // or use fluent migrator syntax
             if (!this.Schema.Schema("dbo").Table("Movie").Exists())
             {
                 Create.Table("Movie").InSchema("dbo")
