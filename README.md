@@ -3,16 +3,16 @@
 A new way, new rule to work with MSSQL database version use [fluent migrator](https://github.com/fluentmigrator/fluentmigrator)
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
 
-## Installation
+### Installation
 >Install-Package DatabaseMigrateExt
 
 
-## Sample Project
+### Sample Project
 
 See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials) at [https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials](https://github.com/minhhungit/DatabaseMigrateExt/tree/master/Tutorials)
 
 
-## Config
+### Config
 
 ```xml
 <add key="mgr:DatabaseKeys"     value="MovieStore, InventoryDb"/>
@@ -32,7 +32,7 @@ For example:
 Of course, you also need a child folder for that database to store migration scripts in `Migrations` folder, like `InvenetoryDb` and `MovieStore` folders
 
 
-## Migration Scripts
+### Migration Scripts
 ***ExtMigration Attributes:***
 
 Right now we just support these attributes:
@@ -71,7 +71,7 @@ You also can define author on attribute, like this:
 [ExtMgrDataStructure("Hung Vo", 2017, 9, 22, 02, 08, 01)]
 ```
 
-## Run
+### Run
 ```csharp
 using DatabaseMigrateExt;
 
