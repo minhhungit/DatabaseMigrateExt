@@ -16,6 +16,7 @@ namespace DatabaseMigrateExt
         internal SortedList<int, string> DatabaseKeys { get; set; } = new SortedList<int, string>();
         internal SortedList<int, DatabaseScriptType> DatabaseScriptTypes { get; set; } = new SortedList<int, DatabaseScriptType>();
         internal Assembly MigrationAssembly { get; set; }
+        internal bool HasInvaildScripts { get; set; } = false;
 
         public ExtMigrationRunnerContext GetRunnerContext()
         {
@@ -24,7 +25,8 @@ namespace DatabaseMigrateExt
                 RootNamespace = this.RootNamespace,
                 DatabaseKeys = this.DatabaseKeys,
                 DatabaseScriptTypes = this.DatabaseScriptTypes,
-                MigrationAssembly = this.MigrationAssembly
+                MigrationAssembly = this.MigrationAssembly,
+                HasInvaildScripts = this.HasInvaildScripts
             };
         }
 
@@ -39,7 +41,14 @@ namespace DatabaseMigrateExt
             #region Initialize RootNamespace
 
             var rootNamespaceFromAppSetting = ConfigurationManager.AppSettings["mgr:RootNamespace"];
-            runner.RootNamespace = rootNamespaceFromAppSetting;
+            if (string.IsNullOrWhiteSpace(rootNamespaceFromAppSetting))
+            {
+                throw new ArgumentException("<rootNamespace> should not null or empty");
+            }
+            else
+            {
+                runner.RootNamespace = rootNamespaceFromAppSetting;
+            }
 
             #endregion
 
@@ -50,14 +59,17 @@ namespace DatabaseMigrateExt
                 runner.DatabaseKeys = new SortedList<int, string>();
             }
             var databaseKeys = ConfigurationManager.AppSettings["mgr:DatabaseKeys"];
-            if (databaseKeys != null)
+            if (!string.IsNullOrWhiteSpace(databaseKeys))
             {
                 var databaseKeyArr = databaseKeys.Split(',');
                 if (databaseKeyArr.Any())
                 {
                     for (var i = 0; i < databaseKeyArr.Length; i++)
                     {
-                        runner.DatabaseKeys.Add(i, databaseKeyArr[i].Trim());
+                        if (!string.IsNullOrWhiteSpace(databaseKeyArr[i]))
+                        {
+                            runner.DatabaseKeys.Add(i, databaseKeyArr[i].Trim());
+                        }
                     }
                 }
             }
@@ -159,6 +171,7 @@ namespace DatabaseMigrateExt
 
             if (invalidScripts.Any())
             {
+                runner.HasInvaildScripts = true;
                 Logger.Info($"There are some invalid scripts:");
                 foreach (var item in invalidScripts.OrderBy(x => x.Key.Name))
                 {

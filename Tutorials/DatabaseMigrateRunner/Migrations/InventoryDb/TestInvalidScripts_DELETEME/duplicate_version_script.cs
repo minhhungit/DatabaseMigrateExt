@@ -14,6 +14,6 @@ namespace DatabaseMigrateRunner.Migrations.InventoryDb
         public override void Down()
         {
             throw new NotImplementedException();
-        }        
+        }
     }
 }

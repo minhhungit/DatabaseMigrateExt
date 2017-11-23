@@ -20,7 +20,7 @@ namespace DatabaseMigrateExt
         {
             if (string.IsNullOrWhiteSpace(rootNamespace))
             {
-                throw new ArgumentException("<rootNamespace> should not null or empty");
+                throw new ArgumentNullException(nameof(rootNamespace), "<rootNamespace> should not null or empty");
             }
 
             runner.RootNamespace = rootNamespace;
@@ -31,7 +31,7 @@ namespace DatabaseMigrateExt
         {
             if (databaseKeys == null)
             {
-                throw new ArgumentException("<databaseKeys> should not null");
+                throw new ArgumentNullException(nameof(databaseKeys), "<databaseKeys> should not null");
             }
 
             runner.DatabaseKeys = new SortedList<int, string>();
@@ -40,7 +40,10 @@ namespace DatabaseMigrateExt
             {
                 foreach (var item in databaseKeys)
                 {
-                    runner.DatabaseKeys.Add(item.Key, item.Value);
+                    if (!string.IsNullOrWhiteSpace(item.Value))
+                    {
+                        runner.DatabaseKeys.Add(item.Key, item.Value);
+                    }
                 }
                 
             }
@@ -53,7 +56,7 @@ namespace DatabaseMigrateExt
         {
             if (layers == null)
             {
-                throw new ArgumentException("<layers> should not null");
+                throw new ArgumentNullException(nameof(layers), "<layers> should not null");
             }
 
             runner.DatabaseScriptTypes = new SortedList<int, DatabaseScriptType>();
@@ -71,7 +74,7 @@ namespace DatabaseMigrateExt
 
         public static ExtMigrationRunner ForMigrationAssembly(this ExtMigrationRunner runner, Assembly migrationAssembly)
         {
-            runner.MigrationAssembly = migrationAssembly ?? throw new ArgumentException("<migrationAssembly> should not null");
+            runner.MigrationAssembly = migrationAssembly ?? throw new ArgumentNullException(nameof(migrationAssembly), "<migrationAssembly> should not null");
             return runner;
         }
 
@@ -79,8 +82,15 @@ namespace DatabaseMigrateExt
         /// Run migration for all databases
         /// </summary>
         /// <param name="runner"></param>
-        public static void Process(this ExtMigrationRunner runner)
+        /// <param name="forceApplyScripts">true : force apply scripts even if we have invaild scripts</para>
+        public static void Process(this ExtMigrationRunner runner, bool forceApplyScripts = false)
         {
+            if (!forceApplyScripts && runner.HasInvaildScripts)
+            {
+                Logger.Info("There is some invaild scripts, if you want to force apply them, you must config forceApplyScripts = true");
+                return;
+            }
+
             #region Check settings
 
             if (string.IsNullOrWhiteSpace(runner.RootNamespace))
@@ -94,12 +104,12 @@ namespace DatabaseMigrateExt
             }
 
             #endregion
-            
+
             var migrationDatabases = runner.DatabaseKeys.Select(dbKey => new MigrateDatabaseContext(runner.RootNamespace, dbKey.Value)).ToList();
 
             foreach (var dbContext in migrationDatabases)
             {
-                Process(runner, dbContext);
+                Process(runner, dbContext, forceApplyScripts);
             }
         }
 
@@ -108,8 +118,14 @@ namespace DatabaseMigrateExt
         /// </summary>
         /// <param name="runner"></param>
         /// <param name="dbContext"></param>
-        public static void Process(this ExtMigrationRunner runner, MigrateDatabaseContext dbContext)
+        public static void Process(this ExtMigrationRunner runner, MigrateDatabaseContext dbContext, bool forceApplyScripts = false)
         {
+            if (!forceApplyScripts && runner.HasInvaildScripts)
+            {
+                Logger.Info("There is some invaild scripts, if you want to force apply them, you must config forceApplyScripts = true");
+                return;
+            }
+
             Logger.InfoFormat($"DATEBASE: {dbContext.DatabaseKey} ({dbContext.DatabaseName})");
             #region Check settings
 
@@ -137,7 +153,7 @@ namespace DatabaseMigrateExt
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat(string.Empty, ex);
+                Logger.Error(ex);
                 throw;
             }
         }
@@ -215,7 +231,7 @@ namespace DatabaseMigrateExt
 
             if (string.IsNullOrWhiteSpace(dbItem.CurrentDatabaseNamespace))
             {
-                throw new ArgumentOutOfRangeException(nameof(dbItem), dbItem, null);
+                throw new ArgumentNullException(nameof(dbItem.CurrentDatabaseNamespace), "<DatabaseNamespace> should not null or empty");
             }
 
             runnerCtx.Namespace = dbItem.CurrentDatabaseNamespace;

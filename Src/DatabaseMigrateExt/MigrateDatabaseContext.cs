@@ -13,8 +13,8 @@ namespace DatabaseMigrateExt
                 throw new ArgumentException("<rootNamespace> or <databaseKey> should not null or empty");
             }
 
-            RootNamespace = rootNamespace;
-            DatabaseKey = databaseKey;
+            RootNamespace = rootNamespace.Trim();
+            DatabaseKey = databaseKey.Trim();
         }
 
         public string RootNamespace { get; set; }

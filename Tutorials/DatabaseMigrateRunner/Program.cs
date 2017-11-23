@@ -25,6 +25,7 @@ namespace DatabaseMigrateRunner
                 #region Run migrate with default values
 
                 //ExtMigrationRunner.Initialize().Process();
+                //Console.ReadKey();
 
                 #endregion
 
@@ -41,13 +42,14 @@ namespace DatabaseMigrateRunner
                 //});
                 //runner.ForMigrationAssembly(typeof(Program).Assembly);
                 //runner.Process();
+                //Console.ReadKey();
 
                 #endregion
 
                 #region Run migrate with some tricks
 
                 var runner = ExtMigrationRunner.Initialize();
- 
+
                 while (true)
                 {
                     Logger.Info("Do you really want to run <type 'yes' to run>: ");
@@ -55,12 +57,13 @@ namespace DatabaseMigrateRunner
                     if (!string.IsNullOrWhiteSpace(result))
                     {
                         Logger.Info("Your answer: " + result);
-
+                        Logger.Info("");
+                        Logger.Info("");
                         switch (result.ToLower().Trim())
                         {
                             case "ok":
                             case "yes":
-                                runner.Process();
+                                runner.Process(true);
                                 Logger.Info("Completed!");
                                 break;
                             case "exit":
