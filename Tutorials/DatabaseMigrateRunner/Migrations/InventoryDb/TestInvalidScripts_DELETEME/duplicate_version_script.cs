@@ -4,7 +4,8 @@ using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
-    [ExtMgrDataStructure("Hung Vo", 2017, 9, 23, 03, 09, 02, false)]
+    // remove commentout bellow line to check dupliate script
+    //[ExtMgrDataStructure("Hung Vo", 2017, 9, 23, 03, 09, 02, false)]
     public class duplicate_version_script : Migration
     {
         public override void Up()
@@ -14,6 +15,6 @@ namespace DatabaseMigrateRunner.Migrations.InventoryDb
         public override void Down()
         {
             throw new NotImplementedException();
-        }        
+        }
     }
 }
