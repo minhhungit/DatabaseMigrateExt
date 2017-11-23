@@ -61,18 +61,16 @@
   <ItemGroup>
     <Compile Include="Migrations\InventoryDb\InventoryDb_20170923_030902_enable_broker.cs" />
     <Compile Include="Migrations\InventoryDb\InventoryDb_20170922_020801_inital_tables.cs" />
-    <Compile Include="Migrations\InventoryDb\TestInvalidScripts\attribute_namespace_script.cs" />
-    <Compile Include="Migrations\InventoryDb\TestInvalidScripts\file_internal_script.cs" />
-    <Compile Include="Migrations\InventoryDb\TestInvalidScripts\internal_namespace_script.cs" />
-    <Compile Include="Migrations\InventoryDb\TestInvalidScripts\duplicate_version_script.cs" />
-    <Compile Include="Migrations\InventoryDb\TestInvalidScripts\private_classs_script.cs" />
-    <Compile Include="Migrations\InventoryDb\TestInvalidScripts\public_attribute_namespace_script.cs" />
-    <Compile Include="Migrations\InventoryDb\TestInvalidScripts\public_namespace_script.cs" />
+    <Compile Include="Migrations\InventoryDb\TestInvalidScripts_DELETEME\attribute_namespace_script.cs" />
+    <Compile Include="Migrations\InventoryDb\TestInvalidScripts_DELETEME\file_internal_script.cs" />
+    <Compile Include="Migrations\InventoryDb\TestInvalidScripts_DELETEME\internal_namespace_script.cs" />
+    <Compile Include="Migrations\InventoryDb\TestInvalidScripts_DELETEME\duplicate_version_script.cs" />
+    <Compile Include="Migrations\InventoryDb\TestInvalidScripts_DELETEME\private_classs_script.cs" />
+    <Compile Include="Migrations\InventoryDb\TestInvalidScripts_DELETEME\public_attribute_namespace_script.cs" />
+    <Compile Include="Migrations\InventoryDb\TestInvalidScripts_DELETEME\public_namespace_script.cs" />
     <Compile Include="Migrations\MovieStore\DataAndStructure\MovieStore_20171021_194001_inital_tables.cs" />
     <Compile Include="Migrations\MovieStore\Function\MovieStore_20170922_083001_create_functions.cs" />
     <Compile Include="Migrations\MovieStore\Stored\MovieStore_20170807_140103_create_stored.cs" />
-    <Compile Include="Migrations\MovieStore\TestInvalidScripts\checkDuplicateScript - Copy.cs" />
-    <Compile Include="Migrations\MovieStore\TestInvalidScripts\checkDuplicateScript.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -91,8 +89,9 @@
       <Name>DatabaseMigrateExt</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Migrations\MovieStore\%40RefScript\DataAndStructure\" />
+    <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\DataAndStructure\v000001_inital_structure.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

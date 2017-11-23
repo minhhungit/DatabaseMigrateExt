@@ -9,5 +9,6 @@ namespace DatabaseMigrateExt
         public string RootNamespace { get; internal set; }
         public SortedList<int, string> DatabaseKeys { get; internal set; }
         public SortedList<int, DatabaseScriptType> DatabaseScriptTypes { get; internal set; }
+        public bool HasInvaildScripts { get; internal set; }
     }
 }
