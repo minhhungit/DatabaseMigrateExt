@@ -22,6 +22,16 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 <add key="mgr:InventoryDb_ConnString"   value="ConnectionString_For_Inventory"/>
 ```
 
+
+Anytime you want to add new database, just need to add new database name into `mgr:DatabaseKeys` and add new connection key for it.
+For example:
+```xml
+<add key="mgr:DatabaseKeys"     value="MovieStore, InventoryDb, MyNewDatabase"/>
+<add key="mgr:MyNewDatabase_ConnString"   value="ConnectionString_For_MyNewDatabase"/>
+```
+Of course, you also need a child folder for that database to store migration scripts in `Migrations` folder, like `InvenetoryDb` and `MovieStore` folders
+
+
 ## Migration Scripts
 ***ExtMigration Attributes:***
 
