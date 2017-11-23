@@ -1,9 +1,7 @@
 ﻿using Common.Logging;
 using DatabaseMigrateExt;
-using FluentMigrator;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DatabaseMigrateRunner
 {
@@ -32,7 +30,7 @@ namespace DatabaseMigrateRunner
                 #region Run migrate with custom values
 
                 //var runner = new ExtMigrationRunner();
-                //runner.ForDatabases(new SortedList<int, string> {{2, "MovieStore" }, {1, "InventoryDb" } });
+                //runner.ForDatabases(new SortedList<int, string> { { 2, "MovieStore" }, { 1, "InventoryDb" } });
                 //runner.ForRootNamespace("DatabaseMigrateRunner.Migrations");
                 //runner.ForDatabaseLayers(new SortedList<int, DatabaseScriptType>
                 //{

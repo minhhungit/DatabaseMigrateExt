@@ -89,8 +89,9 @@
       <Name>DatabaseMigrateExt</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Migrations\MovieStore\%40RefScript\DataAndStructure\" />
+    <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\DataAndStructure\v000001_inital_structure.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
