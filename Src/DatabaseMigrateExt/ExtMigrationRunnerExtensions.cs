@@ -79,11 +79,20 @@ namespace DatabaseMigrateExt
         }
 
         /// <summary>
+        /// Run migration for all databases, stop if it see any invalid migration scripts
+        /// </summary>
+        /// <param name="runner"></param>
+        public static void Process(this ExtMigrationRunner runner)
+        {
+            Process(runner, false);
+        }
+
+        /// <summary>
         /// Run migration for all databases
         /// </summary>
         /// <param name="runner"></param>
         /// <param name="forceApplyScripts">true : force apply scripts even if we have invaild scripts</para>
-        public static void Process(this ExtMigrationRunner runner, bool forceApplyScripts = false)
+        public static void Process(this ExtMigrationRunner runner, bool forceApplyScripts)
         {
             if (!forceApplyScripts && runner.HasInvaildScripts)
             {
@@ -118,7 +127,7 @@ namespace DatabaseMigrateExt
         /// </summary>
         /// <param name="runner"></param>
         /// <param name="dbContext"></param>
-        public static void Process(this ExtMigrationRunner runner, MigrateDatabaseContext dbContext, bool forceApplyScripts = false)
+        public static void Process(this ExtMigrationRunner runner, MigrateDatabaseContext dbContext, bool forceApplyScripts)
         {
             if (!forceApplyScripts && runner.HasInvaildScripts)
             {

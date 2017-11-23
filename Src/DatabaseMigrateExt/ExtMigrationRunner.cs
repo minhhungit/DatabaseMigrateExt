@@ -16,7 +16,7 @@ namespace DatabaseMigrateExt
         internal SortedList<int, string> DatabaseKeys { get; set; } = new SortedList<int, string>();
         internal SortedList<int, DatabaseScriptType> DatabaseScriptTypes { get; set; } = new SortedList<int, DatabaseScriptType>();
         internal Assembly MigrationAssembly { get; set; }
-        internal bool HasInvaildScripts { get; set; } = false;
+        internal bool HasInvaildScripts { get; set; }
 
         public ExtMigrationRunnerContext GetRunnerContext()
         {
@@ -29,6 +29,8 @@ namespace DatabaseMigrateExt
                 HasInvaildScripts = this.HasInvaildScripts
             };
         }
+
+        private ExtMigrationRunner() { }
 
         /// <summary>
         /// Initialize default settings
@@ -114,6 +116,8 @@ namespace DatabaseMigrateExt
 
         static void ShowValidateScripts(ExtMigrationRunner runner)
         {
+            runner.HasInvaildScripts = false;
+
             // warning invalid scripts
             var invalidScripts = new List<KeyValuePair<Type, string>>();
 

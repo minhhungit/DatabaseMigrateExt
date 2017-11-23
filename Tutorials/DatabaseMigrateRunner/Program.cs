@@ -21,7 +21,6 @@ namespace DatabaseMigrateRunner
             try
             {
                 #region Run migrate with default values
-
                 //ExtMigrationRunner.Initialize().Process();
                 //Console.ReadKey();
 
@@ -29,50 +28,50 @@ namespace DatabaseMigrateRunner
 
                 #region Run migrate with custom values
 
-                //var runner = new ExtMigrationRunner();
-                //runner.ForDatabases(new SortedList<int, string> { { 2, "MovieStore" }, { 1, "InventoryDb" } });
-                //runner.ForRootNamespace("DatabaseMigrateRunner.Migrations");
-                //runner.ForDatabaseLayers(new SortedList<int, DatabaseScriptType>
-                //{
-                //    {2, DatabaseScriptType.SqlFunction},
-                //    {3, DatabaseScriptType.SqlStoredProcedure},
-                //    {1, DatabaseScriptType.SqlDataAndStructure}
-                //});
-                //runner.ForMigrationAssembly(typeof(Program).Assembly);
-                //runner.Process();
-                //Console.ReadKey();
+                var runner = ExtMigrationRunner.Initialize();
+                runner.ForDatabases(new SortedList<int, string> { { 1, "MovieStore" }, { 2, "InventoryDb" } });
+                runner.ForRootNamespace("DatabaseMigrateRunner.Migrations");
+                runner.ForDatabaseLayers(new SortedList<int, DatabaseScriptType>
+                {
+                    {2, DatabaseScriptType.SqlFunction},
+                    {3, DatabaseScriptType.SqlStoredProcedure},
+                    {1, DatabaseScriptType.SqlDataAndStructure}
+                });
+                runner.ForMigrationAssembly(typeof(Program).Assembly);
+                runner.Process();
+                Console.ReadKey();
 
                 #endregion
 
-                #region Run migrate with some tricks
+                #region Run migrate with some tricks [THIS'S THE RECOMMENDED]
 
-                var runner = ExtMigrationRunner.Initialize();
+                //var runner = ExtMigrationRunner.Initialize();
 
-                while (true)
-                {
-                    Logger.Info("Do you really want to run <type 'yes' to run>: ");
-                    var result = Console.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(result))
-                    {
-                        Logger.Info("Your answer: " + result);
-                        Logger.Info("");
-                        Logger.Info("");
-                        switch (result.ToLower().Trim())
-                        {
-                            case "ok":
-                            case "yes":
-                                runner.Process(true);
-                                Logger.Info("Completed!");
-                                break;
-                            case "exit":
-                            case "quit":
-                            case "close":
-                                Logger.Info("\n---------------------------------");
-                                Logger.Info("System is closing, please wait...");
-                                return;
-                        }
-                    }
-                }
+                //while (true)
+                //{
+                //    Logger.Info("Do you really want to run <type 'yes' to run>: ");
+                //    var result = Console.ReadLine();
+                //    if (!string.IsNullOrWhiteSpace(result))
+                //    {
+                //        Logger.Info("Your answer: " + result);
+                //        Logger.Info("");
+                //        Logger.Info("");
+                //        switch (result.ToLower().Trim())
+                //        {
+                //            case "ok":
+                //            case "yes":
+                //                runner.Process(true);
+                //                Logger.Info("Completed!");
+                //                break;
+                //            case "exit":
+                //            case "quit":
+                //            case "close":
+                //                Logger.Info("\n---------------------------------");
+                //                Logger.Info("System is closing, please wait...");
+                //                return;
+                //        }
+                //    }
+                //}
 
                 #endregion
             }
