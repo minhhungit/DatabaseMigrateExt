@@ -88,4 +88,4 @@ static void Main(string[] args)
 ```
 
 ## Thanks
-<a href="https://www.jetbrains.com/"><img src="./wiki/images/jetbrains-128x128.png" /></a>
+<a href="https://www.jetbrains.com/"><img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/jetbrains-128x128.png" /></a>
