@@ -86,3 +86,6 @@ static void Main(string[] args)
     Console.ReadKey();
 }
 ```
+
+## Thanks
+<a href="https://www.jetbrains.com/"><img src="./wiki/images/jetbrains-128x128.png" /></a>
