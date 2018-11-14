@@ -1,4 +1,5 @@
 ﻿using FluentMigrator;
+using System;
 
 namespace DatabaseMigrateExt
 {
@@ -42,32 +43,32 @@ namespace DatabaseMigrateExt
         {
             if (year <= 0 || year > 3000)
             {
-                throw new System.Exception($"Invaild migrate version:- Year: {year}");
+                throw new ArgumentException($"Invaild migrate version:- Year: {year}");
             }
 
             if (month <= 0 || month > 12)
             {
-                throw new System.Exception($"Invaild migrate version:- Month: {month}");
+                throw new ArgumentException($"Invaild migrate version:- Month: {month}");
             }
 
             if (day <= 0 || day > 31)
             {
-                throw new System.Exception($"Invaild migrate version:- Day: {day}");
+                throw new ArgumentException($"Invaild migrate version:- Day: {day}");
             }
 
             if (hour < 0 || hour > 25)
             {
-                throw new System.Exception($"Invaild migrate version:- Hour: {hour}");
+                throw new ArgumentException($"Invaild migrate version:- Hour: {hour}");
             }
 
             if (minute < 0 || minute > 60)
             {
-                throw new System.Exception($"Invaild migrate version:- Minute: {minute}");
+                throw new ArgumentException($"Invaild migrate version:- Minute: {minute}");
             }
 
             if (second < 0 || second > 60)
             {
-                throw new System.Exception($"Invaild migrate version:- Second: {second}");
+                throw new ArgumentException($"Invaild migrate version:- Second: {second}");
             }
         }
     }
