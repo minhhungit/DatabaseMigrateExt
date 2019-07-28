@@ -44,7 +44,7 @@ Right now we just support these attributes:
 > Note: You can place migration class in everywhere as long as it is placed under namespace of database.
 > For example: **DatabaseMigrateRunner.Migrations.MovieStore**
 
-<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/sample-migration-structure.png" style="width: 120%; height: 120%" />
+<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/demo.png" />
 
 
 ***Sample script:*** 
