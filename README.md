@@ -46,7 +46,7 @@ Right now we just support these attributes:
 > Note: You can place migration class in everywhere as long as it is placed under namespace of database.
 > For example: **DatabaseMigrateRunner.Migrations.MovieStore**
 
-### Order of migrations:
+***Order of migrations:***
 DatabaseMigrateExt will executes migration scripts with bellow order:
 
 - DataStructure (version start at 1000..., ex: 100020171021194001)
