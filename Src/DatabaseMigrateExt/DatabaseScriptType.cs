@@ -8,7 +8,7 @@ namespace DatabaseMigrateExt
         SqlDataAndStructure = 1000,
         [Description("Function")]
         SqlFunction = 2000,
-        [Description("Stored Procedure")]
-        SqlStoredProcedure = 3000
+        [Description("Stored Procedure And Scripts")]
+        SqlStoredProcedureAndTsqlScripts = 3000
     }
 }

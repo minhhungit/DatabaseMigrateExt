@@ -18,10 +18,12 @@ See [Sample Project](https://github.com/minhhungit/DatabaseMigrateExt/tree/maste
 <add key="mgr:DatabaseKeys"     value="MovieStore, InventoryDb"/>
 <add key="mgr:RootNamespace"    value="DatabaseMigrateRunner.Migrations"/>
 
-<add key="mgr:MovieStore_ConnString"    value="ConnectionString_For_MovieStore"/>
-<add key="mgr:InventoryDb_ConnString"   value="ConnectionString_For_Inventory"/>
+<add key="mgr:MovieStore_ConnString"    value="Your_ConnectionString_For_MovieStore_At_Here"/>
+<add key="mgr:InventoryDb_ConnString"   value="Your_ConnectionString_For_Inventory_At_Here"/>
 ```
 
+*Note*: 
+> mgr:MovieStore_ConnString = 'mgr:' + [DatabaseKey] + '_ConnString'
 
 Anytime you want to add new database, just need to add new database name into `mgr:DatabaseKeys` and add new connection key for it.
 For example:
@@ -38,12 +40,27 @@ Of course, you also need a child folder for that database to store migration scr
 Right now we just support these attributes:
 - Use `ExtMgrDataStructure` for `structure` or `data` migrations.
 - Use `ExtMgrFunction` for `function` migrations.
-- Use `ExtMgrStoredProcedure` for `stored procedure` migrations.
+- Use `ExtMgrStoredProcedureAndScript` for `stored procedure` or `t-sql scripts` migrations.
 
 ***Migration structure:***
 > Note: You can place migration class in everywhere as long as it is placed under namespace of database.
 > For example: **DatabaseMigrateRunner.Migrations.MovieStore**
 
+***Order of migrations:***
+DatabaseMigrateExt will executes migration scripts with bellow order:
+
+- DataStructure (version start at 1000..., ex: 100020171021194001)
+- Function (version start at 2000..., ex: 200020170922083001)
+- StoredProcedureAndScript (version start at 2000..., ex: 300020190908032101)
+
+### Note & Tips:
+- Your sql scripts (can be strucuture/stored/funtion...) must be mark as 'Embedded Resource' - see bellow image :point_down:)
+- DatabaseMigrateExt will find and show all invaild migration scripts when application starts, you should check them
+- DatabaseMigrateExt will not execute invalid scripts
+
+<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/embedded_resource.png" />
+
+### Demo
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/demo.png" />
 
 

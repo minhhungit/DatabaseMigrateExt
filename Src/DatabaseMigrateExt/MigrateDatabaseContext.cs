@@ -46,5 +46,6 @@ namespace DatabaseMigrateExt
         public string SqlArchitectureRefScriptNamespace     => $"{CurrentRefScriptNamespace}.DataAndStructure";
         public string SqlFunctionRefScriptNamespace         => $"{CurrentRefScriptNamespace}.Function";
         public string SqlStoredRefScriptNamespace           => $"{CurrentRefScriptNamespace}.Stored";
+        public string SqlTsqlScriptRefScriptNamespace => $"{CurrentRefScriptNamespace}.Stored.Scripts";
     }
 }
