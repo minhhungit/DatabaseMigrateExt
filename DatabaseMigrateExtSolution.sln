@@ -7,13 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMigrateExt", "Src\D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{E1E4B28F-54C5-4C6C-9641-F6926FA7896F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMigrateRunner", "Tutorials\DatabaseMigrateRunner\DatabaseMigrateRunner.csproj", "{69079B8B-3D35-499E-AC67-F8F0D75FD58B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{849F76E0-F520-485F-9CE4-9914808EEE3A}"
 	ProjectSection(SolutionItems) = preProject
-		Src\DatabaseMigrateExt\DatabaseMigrateExt.nuspec = Src\DatabaseMigrateExt\DatabaseMigrateExt.nuspec
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMigrateRunner", "Samples\DatabaseMigrateRunner\DatabaseMigrateRunner.csproj", "{69079B8B-3D35-499E-AC67-F8F0D75FD58B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
