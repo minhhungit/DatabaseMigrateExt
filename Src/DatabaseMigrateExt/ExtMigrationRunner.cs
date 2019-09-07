@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace DatabaseMigrateExt
     public class ExtMigrationRunner
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ExtMigrationRunner));
+        public static List<string> ValidScriptsStore { get; private set; } = new List<string>();
 
         internal string RootNamespace { get; set; }
         internal SortedList<int, string> DatabaseKeys { get; set; } = new SortedList<int, string>();
@@ -134,7 +136,7 @@ namespace DatabaseMigrateExt
                 }
             }
 
-            var scriptVersions = new List<string>();
+            var duplicateVersionsTmp = new List<string>();
             foreach (var script in allScriptFiles)
             {
                 if (!validNamespaces.Values.Contains(script.Namespace))
@@ -156,21 +158,35 @@ namespace DatabaseMigrateExt
 
                     if (migAttr != null)
                     {
-                        var key = $"{dbKey.Key}.{((BaseExtMgrAttribute)migAttr).Version}";
+                        var versionLong = ((BaseExtMgrAttribute)migAttr).Version;
+                        var key = $"{dbKey.Key}.{versionLong}";
 
-                        if (scriptVersions.Contains(key))
+                        if (BaseExtMgrAttribute.VersionBank != null && BaseExtMgrAttribute.VersionBank.ContainsKey(versionLong))
+                        {
+                            var dtVersion = BaseExtMgrAttribute.VersionBank[versionLong];
+
+                            var versionInvailMsg = ValidateMigrateVersion(dtVersion.Year, dtVersion.Month, dtVersion.Day, dtVersion.Hour, dtVersion.Minute, dtVersion.Second);
+                            if (!string.IsNullOrWhiteSpace(versionInvailMsg))
+                            {
+                                invalidScripts.Add(new KeyValuePair<Type, string>(script, versionInvailMsg));
+                                continue;
+                            }
+                        }
+
+                        if (duplicateVersionsTmp.Contains(key))
                         {
                             invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[DUPLICATE VERSION - {{{dbKey.Key}}}]"));
                             continue;
                         }
-                        scriptVersions.Add(key);
+                        duplicateVersionsTmp.Add(key);
+                        ValidScriptsStore.Add($"{versionLong}.{dbKey.Key}");
                     }
                     else
                     {
                         invalidScripts.Add(new KeyValuePair<Type, string>(script, $"[INCORRECT ATTRIBUTE - {{{dbKey.Key}}}]"));
                         continue;
                     }
-                }
+                }                                
             }
 
             if (invalidScripts.Any())
@@ -184,6 +200,41 @@ namespace DatabaseMigrateExt
 
                 Logger.Info("");
             }
+        }
+
+        static string ValidateMigrateVersion(int year, int month, int day, int hour, int minute, int second)
+        {
+            if (year <= 0 || year > 3000)
+            {
+                return $"Invaild migrate version:- Year: {year}";
+            }
+
+            if (month <= 0 || month > 12)
+            {
+                return $"Invaild migrate version:- Month: {month}";
+            }
+
+            if (day <= 0 || day > 31)
+            {
+                return $"Invaild migrate version:- Day: {day}";
+            }
+
+            if (hour < 0 || hour > 25)
+            {
+                return $"Invaild migrate version:- Hour: {hour}";
+            }
+
+            if (minute < 0 || minute > 60)
+            {
+                return $"Invaild migrate version:- Minute: {minute}";
+            }
+
+            if (second < 0 || second > 60)
+            {
+                return $"Invaild migrate version:- Second: {second}";
+            }
+
+            return string.Empty;
         }
     }
 }

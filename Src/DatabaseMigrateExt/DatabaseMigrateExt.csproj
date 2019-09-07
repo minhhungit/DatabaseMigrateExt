@@ -55,7 +55,7 @@
     <Compile Include="Attributes\BaseExtMgrAttribute.cs" />
     <Compile Include="Attributes\ExtMgrDataStructureAttribute.cs" />
     <Compile Include="Attributes\ExtMgrFunctionAttribute.cs" />
-    <Compile Include="Attributes\ExtMgrStoredProcedureAttribute.cs" />
+    <Compile Include="Attributes\ExtMgrStoredProcedureAndScriptAttribute.cs" />
     <Compile Include="DatabaseScriptType.cs" />
     <Compile Include="ExtMigrationRunner.cs" />
     <Compile Include="ExtMigrationRunnerContext.cs" />

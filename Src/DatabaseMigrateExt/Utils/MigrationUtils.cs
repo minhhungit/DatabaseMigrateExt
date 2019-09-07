@@ -24,5 +24,12 @@ namespace DatabaseMigrateExt.Utils
             var embeddedScriptNamespace = $"{appContext.SqlFunctionRefScriptNamespace}.{scriptFileName.Trim()}";
             migration.Execute.EmbeddedScript(embeddedScriptNamespace);
         }
+
+        public static void ExecuteTsqlScript(this Migration migration, string scriptFileName)
+        {
+            var appContext = (MigrateDatabaseContext)migration.ApplicationContext;
+            var embeddedScriptNamespace = $"{appContext.SqlTsqlScriptRefScriptNamespace}.{scriptFileName.Trim()}";
+            migration.Execute.EmbeddedScript(embeddedScriptNamespace);
+        }
     }
 }

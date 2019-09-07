@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMigrateExt", "Src\DatabaseMigrateExt\DatabaseMigrateExt.csproj", "{5573E2B7-A629-47B0-AD6A-39233CC3C289}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{E1E4B28F-54C5-4C6C-9641-F6926FA7896F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{E1E4B28F-54C5-4C6C-9641-F6926FA7896F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseMigrateRunner", "Tutorials\DatabaseMigrateRunner\DatabaseMigrateRunner.csproj", "{69079B8B-3D35-499E-AC67-F8F0D75FD58B}"
 EndProject

@@ -47,6 +47,14 @@ namespace DatabaseMigrateRunner
 
                 var runner = ExtMigrationRunner.Initialize();
 
+                Console.WriteLine();
+                Console.WriteLine("**********************************************************************************");
+                Console.WriteLine("*                              FOR TESTING PURPOSE                               *");
+                Console.WriteLine("*    I ADDED SOME INVAILD SCRIPTS INSIDE [TestInvalidScripts_DELETEME] FOLDER    *");
+                Console.WriteLine("*               WHEN YOU KNOW HOW IT WORKS YOU SHOULD DELETE IT                  *");
+                Console.WriteLine("**********************************************************************************");
+                Console.WriteLine();
+
                 while (true)
                 {
                     Logger.Info("Do you really want to run <type 'yes' to run>: ");

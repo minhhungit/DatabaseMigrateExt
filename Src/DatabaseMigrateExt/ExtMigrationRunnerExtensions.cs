@@ -154,7 +154,7 @@ namespace DatabaseMigrateExt
             {
                 foreach (var scriptType in runner.DatabaseScriptTypes)
                 {
-                    ValidateAndRunMigrations(dbContext, scriptType.Value, runner.MigrationAssembly);
+                    ApplyMigrationUp(dbContext, scriptType.Value, runner.MigrationAssembly);
                 }
 
                 Logger.InfoFormat($"=> [{dbContext.DatabaseKey}] is done");
@@ -167,7 +167,7 @@ namespace DatabaseMigrateExt
             }
         }
 
-        private static void ValidateAndRunMigrations(MigrateDatabaseContext dbContext, DatabaseScriptType scriptType, Assembly migrationAssembly)
+        private static void ApplyMigrationUp(MigrateDatabaseContext dbContext, DatabaseScriptType scriptType, Assembly migrationAssembly)
         {
             using (var sw = new StringWriter())
             {
@@ -192,6 +192,12 @@ namespace DatabaseMigrateExt
                         continue;
                     }
 
+                    // exclude invaild script
+                    if (!ExtMigrationRunner.ValidScriptsStore.Contains($"{script.Value.Version}.{dbContext.DatabaseKey}"))
+                    {
+                        continue;
+                    }
+
                     switch (scriptType)
                     {
                         case DatabaseScriptType.SqlDataAndStructure:
@@ -206,8 +212,8 @@ namespace DatabaseMigrateExt
                                 continue;
                             }
                             break;
-                        case DatabaseScriptType.SqlStoredProcedure:
-                            if (!(migrateAttr is ExtMgrStoredProcedureAttribute))
+                        case DatabaseScriptType.SqlStoredProcedureAndTsqlScripts:
+                            if (!(migrateAttr is ExtMgrStoredProcedureAndScriptAttribute))
                             {
                                 continue;
                             }
