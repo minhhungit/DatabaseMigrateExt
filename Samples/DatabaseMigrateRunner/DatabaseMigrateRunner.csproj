@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>DatabaseMigrateRunner</RootNamespace>
     <AssemblyName>DatabaseMigrateRunner</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
@@ -42,8 +44,11 @@
     <Reference Include="Common.Logging.NLog41, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Common.Logging.NLog41.3.4.1\lib\net40\Common.Logging.NLog41.dll</HintPath>
     </Reference>
-    <Reference Include="FluentMigrator, Version=1.6.2.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentMigrator.1.6.2\lib\40\FluentMigrator.dll</HintPath>
+    <Reference Include="FluentMigrator, Version=2.0.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.2.0.0\lib\net45\FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Abstractions.2.0.0\lib\net45\FluentMigrator.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.4.4.12\lib\net40\NLog.dll</HintPath>
@@ -86,16 +91,16 @@
     <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\Stored\dbo.GetMovieById.sql" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\DatabaseMigrateExt\DatabaseMigrateExt.csproj">
-      <Project>{5573E2B7-A629-47B0-AD6A-39233CC3C289}</Project>
-      <Name>DatabaseMigrateExt</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\Stored\Scripts\v0000001_do_something.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\DataAndStructure\v000001_inital_structure.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\DatabaseMigrateExt\DatabaseMigrateExt.csproj">
+      <Project>{5573e2b7-a629-47b0-ad6a-39233cc3c289}</Project>
+      <Name>DatabaseMigrateExt</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

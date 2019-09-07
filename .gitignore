@@ -7,3 +7,6 @@ packages
 /Tutorials/DatabaseMigrateRunner/bin/Debug
 /Tutorials/DatabaseMigrateRunner/obj/Debug
 obj
+/Samples/DatabaseMigrateRunner/bin/Debug
+/Samples/DatabaseMigrateRunner/bin/Release
+/Src/DatabaseMigrateExt/bin/Release
