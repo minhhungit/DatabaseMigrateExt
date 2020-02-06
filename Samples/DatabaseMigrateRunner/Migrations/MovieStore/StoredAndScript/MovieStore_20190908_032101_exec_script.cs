@@ -10,7 +10,7 @@ namespace DatabaseMigrateRunner.Migrations.MovieStore
     {
         public override void Up()
         {
-            this.ExecuteTsqlScript("v0000001_do_something.sql");
+            this.ExecuteGeneralScript("v0000001_do_something.sql");
         }
 
         public override void Down()

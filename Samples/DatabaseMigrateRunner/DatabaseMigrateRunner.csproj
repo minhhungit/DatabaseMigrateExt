@@ -91,7 +91,7 @@
     <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\Stored\dbo.GetMovieById.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\Stored\Scripts\v0000001_do_something.sql" />
+    <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\%40General\v0000001_do_something.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\MovieStore\%40RefScript\DataAndStructure\v000001_inital_structure.sql" />
