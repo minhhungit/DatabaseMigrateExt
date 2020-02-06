@@ -41,11 +41,66 @@ namespace DatabaseMigrateExt
         }
 
         public string CurrentDatabaseNamespace => $"{RootNamespace}.{DatabaseKey}";
-        public string CurrentRefScriptNamespace => $"{RootNamespace}.{DatabaseKey}._RefScript";
+        public string CurrentRefScriptNamespace => $"{CurrentDatabaseNamespace}._RefScript";
 
-        public string SqlArchitectureRefScriptNamespace     => $"{CurrentRefScriptNamespace}.DataAndStructure";
-        public string SqlFunctionRefScriptNamespace         => $"{CurrentRefScriptNamespace}.Function";
-        public string SqlStoredRefScriptNamespace           => $"{CurrentRefScriptNamespace}.Stored";
-        public string SqlTsqlScriptRefScriptNamespace => $"{CurrentRefScriptNamespace}.Stored.Scripts";
+        public string SqlArchitectureRefScriptNamespace
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[$"mgr:SqlArchitectureRefScriptNamespace"]))
+                {
+                    return $"{CurrentRefScriptNamespace}.DataAndStructure";
+                }
+                else
+                {
+                    return $"{CurrentRefScriptNamespace}.{ConfigurationManager.AppSettings[$"mgr:SqlArchitectureRefScriptNamespace"].ToString().Trim()}";
+                }
+            }
+        }
+
+        public string SqlFunctionRefScriptNamespace
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[$"mgr:SqlFunctionRefScriptNamespace"]))
+                {
+                    return $"{CurrentRefScriptNamespace}.Function";
+                }
+                else
+                {
+                    return $"{CurrentRefScriptNamespace}.{ConfigurationManager.AppSettings[$"mgr:SqlFunctionRefScriptNamespace"].ToString().Trim()}";
+                }
+            }
+        }
+
+        public string SqlStoredRefScriptNamespace
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[$"mgr:SqlStoredRefScriptNamespace"]))
+                {
+                    return $"{CurrentRefScriptNamespace}.Stored";
+                }
+                else
+                {
+                    return $"{CurrentRefScriptNamespace}.{ConfigurationManager.AppSettings[$"mgr:SqlStoredRefScriptNamespace"].ToString().Trim()}";
+                }
+            }
+        }
+
+        public string SqlGeneralScriptRefScriptNamespace
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[$"mgr:SqlGeneralScriptRefScriptNamespace"]))
+                {
+                    return $"{CurrentRefScriptNamespace}._General";
+                }
+                else
+                {
+                    return $"{CurrentRefScriptNamespace}.{ConfigurationManager.AppSettings[$"mgr:SqlGeneralScriptRefScriptNamespace"].ToString().Trim()}";
+                }
+            }
+        }
     }
 }

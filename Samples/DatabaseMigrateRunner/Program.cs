@@ -51,7 +51,7 @@ namespace DatabaseMigrateRunner
                 Console.WriteLine("**********************************************************************************");
                 Console.WriteLine("*                              FOR TESTING PURPOSE                               *");
                 Console.WriteLine("*    I ADDED SOME INVAILD SCRIPTS INSIDE [TestInvalidScripts_DELETEME] FOLDER    *");
-                Console.WriteLine("*               WHEN YOU KNOW HOW IT WORKS YOU SHOULD DELETE IT                  *");
+                Console.WriteLine("*               ONCE YOU KNOW HOW IT WORKS YOU SHOULD DELETE IT                  *");
                 Console.WriteLine("**********************************************************************************");
                 Console.WriteLine();
 
