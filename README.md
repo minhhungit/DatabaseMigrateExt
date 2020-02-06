@@ -88,7 +88,7 @@ DatabaseMigrateExt will executes migration scripts with bellow order:
 
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/db-versions.png" />
 
-###Ref-Script And Change-Script
+### Ref-Script And Change-Script
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/ref-and-change-script.png" />
 
 ### Note & Tips:
