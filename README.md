@@ -6,7 +6,7 @@ A new way, new rule to work with MSSQL database version use [fluent migrator](ht
 ### Installation
 >Install-Package DatabaseMigrateExt
 
-### Overview ?
+### Overview
 When we use `Fluent Migrator` or even `EF Migration`, it will be very hard to check history of a sql function/stored procedure, 
 DatabaseMigrateExt can help you resolve the problem using ChangeScript/RefScript pattern. 
 
