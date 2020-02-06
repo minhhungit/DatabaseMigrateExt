@@ -25,7 +25,7 @@ in above sample, `Migration 01` and `Migration 02` will call one file `dbo.GetPr
 There is a high possibility that migratior can not execute your stored procedure because some tables have not created yet.
 
 To hanlde it, we will need to classify type of change-scripts by using `ExtMigration Attributes`, all migrations relate to schema like Create Database, Alter Column, Created Index, Function... should be run 
-before Stored Procedure alter migration. Then when you re-run, you will have newes tables, newest schema and Stored Procedure will work.
+before Stored Procedure alter migration. Then when you re-run, you will have newest tables, newest schema and Stored Procedure will work.
 
 So that is what DatabaseMigrateExt does.
 
