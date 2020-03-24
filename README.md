@@ -102,11 +102,12 @@ DatabaseMigrateExt will executes migration scripts with bellow order:
 - Data, Structure or Function (version start at 1000..., ex: 100020171021194001)
 - Stored Procedure (version start at 2000..., ex: 200020190908032101)
 
-| Version | AppliedOn | Description |
-| 100020171021194001 | 2020-03-24 16:42:18.000	| MovieStore_20171021_194001_inital_tables |
-| 100020171022154501| 2020-03-24 16:42:18.000	| MovieStore_20171022_154501_inital_function |
-| 200020170807140103| 2020-03-24 16:42:18.000	| MovieStore_20170807_140103_create_stored |
-| 200020190908032101| 2020-03-24 16:42:18.000	| MovieStore_20190908_032101_exec_script |
+| Version            | AppliedOn                | Description                                   |
+|:------------------ |:-------------------------|:----------------------------------------------|
+| 100020171021194001 | 2020-03-24 16:42:18.000	| MovieStore_20171021_194001_inital_tables      |
+| 100020171022154501 | 2020-03-24 16:42:18.000	| MovieStore_20171022_154501_inital_function    |
+| 200020170807140103 | 2020-03-24 16:42:18.000	| MovieStore_20170807_140103_create_stored      |
+| 200020190908032101 | 2020-03-24 16:42:18.000	| MovieStore_20190908_032101_exec_script        |
 
 ***Ref-Script And Change-Script***
 
