@@ -4,11 +4,9 @@ namespace DatabaseMigrateExt
 {
     public enum DatabaseScriptType
     {
-        [Description("Data And Structure")]
-        SqlDataAndStructure = 1000,
-        [Description("Function")]
-        SqlFunction = 2000,
-        [Description("Stored Procedure And Scripts")]
-        SqlStoredProcedureAndTsqlScripts = 3000
+        [Description("Data, Structure And Functions")]
+        SqlDataStructureFunction = 1000,
+        [Description("Stored Procedures")]
+        SqlStoredProcedures = 2000
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using DatabaseMigrateExt;
-using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
-    [ExtMgrDataStructure("Hung Vo", 2017, 9, 23, 03, 09, 02, false)]
-    public class InventoryDb_20170923_030902_enable_broker : Migration
+    [ExtMgrDataStructureAndFunctions("Hung Vo", 2017, 9, 23, 03, 09, 02, false)]
+    public class InventoryDb_20170923_030902_enable_broker : ExtDataStructureMigration
     {
         public override void Up()
         {
