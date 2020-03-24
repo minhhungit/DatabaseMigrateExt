@@ -6,7 +6,7 @@ A new way, new rule to work with MSSQL database version use [fluent migrator](ht
 ### Installation
 >Install-Package DatabaseMigrateExt
 
-### Overview ?
+### Overview
 When we use `Fluent Migrator` or even `EF Migration`, it will be very hard to check history of a sql function/stored procedure, 
 DatabaseMigrateExt can help you resolve the problem using ChangeScript/RefScript pattern. 
 
@@ -24,7 +24,7 @@ in above sample, `Migration 01` and `Migration 02` will call same file `dbo.GetP
 There is a high possibility that migratior can not execute your stored procedure because some tables have not created yet.
 
 To hanlde it, we will need to classify type of change-scripts by using `ExtMigration Attributes`, all migrations relate to schema like Create Database, Alter Column, Created Index, Function... should be run 
-before Stored Procedure alter migration. Then when you re-run, you will have newes tables, newest schema and Stored Procedure will work.
+before Stored Procedure alter migration. Then when you re-run, you will have newest tables, newest schema and Stored Procedure will work.
 
 So that is what DatabaseMigrateExt does.
 
@@ -102,13 +102,15 @@ DatabaseMigrateExt will executes migration scripts with bellow order:
 - Data, Structure or Function (version start at 1000..., ex: 100020171021194001)
 - Stored Procedure (version start at 2000..., ex: 200020190908032101)
 
-| Version | AppliedOn | Description |
-| 100020171021194001 | 2020-03-24 16:42:18.000	| MovieStore_20171021_194001_inital_tables |
-| 100020171022154501| 2020-03-24 16:42:18.000	| MovieStore_20171022_154501_inital_function |
-| 200020170807140103| 2020-03-24 16:42:18.000	| MovieStore_20170807_140103_create_stored |
-| 200020190908032101| 2020-03-24 16:42:18.000	| MovieStore_20190908_032101_exec_script |
+| Version            | AppliedOn                | Description                                   |
+|:------------------ |:-------------------------|:----------------------------------------------|
+| 100020171021194001 | 2020-03-24 16:42:18.000	| MovieStore_20171021_194001_inital_tables      |
+| 100020171022154501 | 2020-03-24 16:42:18.000	| MovieStore_20171022_154501_inital_function    |
+| 200020170807140103 | 2020-03-24 16:42:18.000	| MovieStore_20170807_140103_create_stored      |
+| 200020190908032101 | 2020-03-24 16:42:18.000	| MovieStore_20190908_032101_exec_script        |
 
-###Ref-Script And Change-Script
+***Ref-Script And Change-Script***
+
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/ref-and-change-script.png" />
 
 ### Note & Tips:
