@@ -4,7 +4,7 @@ using DatabaseMigrateExt;
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
     [ExtMgrDataStructureAndFunctions("Hung Vo", 2017, 10, 21, 19, 40, 01)]
-    public class MovieStore_20171021_194001_inital_tables : ExtDataStructureMigration
+    public class MovieStore_20171021_194001_inital_tables : ExtDataStructureFunctionMigration
     {
         public override void Up()
         {

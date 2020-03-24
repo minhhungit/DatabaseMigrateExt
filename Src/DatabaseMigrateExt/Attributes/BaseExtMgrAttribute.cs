@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 
 namespace DatabaseMigrateExt
 {
+    [AttributeUsage(AttributeTargets.Class)]
     public abstract class BaseExtMgrAttribute : MigrationAttribute
     {
         public static ConcurrentDictionary<long, DateTime> VersionBank { get; private set; }

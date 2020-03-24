@@ -1,5 +1,8 @@
-﻿namespace DatabaseMigrateExt
+﻿using System;
+
+namespace DatabaseMigrateExt
 {
+    [AttributeUsage(AttributeTargets.Class)]
     public class ExtMgrStoredProceduresAttribute : BaseExtMgrAttribute
     {
         private static DatabaseScriptType ScriptType => DatabaseScriptType.SqlStoredProcedures;
