@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
     <Title>DatabaseMigrateExt</Title>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <Copyright>Copyright 2019 HungVo &lt;it.minhhung@gmail.com&gt;</Copyright>
     <Description>A library for working with MSSQL database version use Fluent Migrator</Description>
     <Authors>Hung Vo</Authors>
@@ -10,9 +10,9 @@
     <PackageProjectUrl>https://github.com/minhhungit/DatabaseMigrateExt/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/minhhungit/DatabaseMigrateExt/</RepositoryUrl>
     <PackageTags>fluentmigrator, extension, sql-version, versioning, db-updater, mssql-database, database-migrate-ext, dot-net-core</PackageTags>
-    <PackageReleaseNotes>structure/function should be same type</PackageReleaseNotes>
-    <AssemblyVersion>3.0.0</AssemblyVersion>
-    <FileVersion>3.0.0</FileVersion>
+    <PackageReleaseNotes>clean up</PackageReleaseNotes>
+    <AssemblyVersion>3.0.1</AssemblyVersion>
+    <FileVersion>3.0.1</FileVersion>
     <Company />
     <PackageIconUrl>https://github.com/minhhungit/DatabaseMigrateExt/master/wiki/Icon/favicon.ico</PackageIconUrl>
     <PackageId>DatabaseMigrateExt</PackageId>

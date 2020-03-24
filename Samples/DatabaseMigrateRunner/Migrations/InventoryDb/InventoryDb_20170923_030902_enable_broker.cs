@@ -4,7 +4,7 @@ using DatabaseMigrateExt;
 namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
     [ExtMgrDataStructureAndFunctions("Hung Vo", 2017, 9, 23, 03, 09, 02, false)]
-    public class InventoryDb_20170923_030902_enable_broker : ExtDataStructureMigration
+    public class InventoryDb_20170923_030902_enable_broker : ExtDataStructureFunctionMigration
     {
         public override void Up()
         {

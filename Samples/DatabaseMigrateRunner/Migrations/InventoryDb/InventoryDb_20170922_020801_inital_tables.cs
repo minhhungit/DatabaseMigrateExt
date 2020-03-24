@@ -4,7 +4,7 @@ using DatabaseMigrateExt;
 namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
     [ExtMgrDataStructureAndFunctions(2017, 9, 22, 02, 08, 01)]
-    public class InventoryDb_20170922_020801_inital_tables : ExtDataStructureMigration
+    public class InventoryDb_20170922_020801_inital_tables : ExtDataStructureFunctionMigration
     {
         public override void Up()
         {

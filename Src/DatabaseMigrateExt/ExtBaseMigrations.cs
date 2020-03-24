@@ -11,16 +11,13 @@ namespace DatabaseMigrateExt
         }
     }
 
-    public abstract class ExtDataStructureMigration : ExtBaseMigration
+    public abstract class ExtDataStructureFunctionMigration : ExtBaseMigration
     {
         public void ExecuteDataStructureRefScript(string fileName)
         {
             MigrationUtils.ExecuteDataStructureRefScript(this, fileName);
         }
-    }
 
-    public abstract class ExtFunctionsMigration : ExtBaseMigration
-    {
         public void ExecuteFunctionRefScript(string fileName)
         {
             MigrationUtils.ExecuteFunctionRefScript(this, fileName);

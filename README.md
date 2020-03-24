@@ -71,7 +71,7 @@ For example:
 
 ```csharp
 [ExtMgrDataStructureAndFunctions(2017, 9, 22, 02, 08, 01)]
-public class InventoryDb_20170922_020801_inital_tables : ExtDataStructureMigration
+public class InventoryDb_20170922_020801_inital_tables : ExtDataStructureFunctionMigration
 {
     public override void Up()
     {
@@ -130,7 +130,7 @@ using DatabaseMigrateExt;
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
     [ExtMgrDataStructureAndFunctions(2017, 9, 22, 02, 08, 01)]
-    public class SqlStructure_20170921_194001_inital_tables : ExtDataStructureMigration
+    public class SqlStructure_20170921_194001_inital_tables : ExtDataStructureFunctionMigration
     {
         public override void Up()
         {
