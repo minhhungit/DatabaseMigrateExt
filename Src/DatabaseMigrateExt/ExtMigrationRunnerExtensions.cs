@@ -200,20 +200,14 @@ namespace DatabaseMigrateExt
 
                     switch (scriptType)
                     {
-                        case DatabaseScriptType.SqlDataAndStructure:
-                            if (!(migrateAttr is ExtMgrDataStructureAttribute))
+                        case DatabaseScriptType.SqlDataStructureFunction:
+                            if (!(migrateAttr is ExtMgrDataStructureAndFunctionsAttribute))
                             {
                                 continue;
                             }
                             break;
-                        case DatabaseScriptType.SqlFunction:
-                            if (!(migrateAttr is ExtMgrFunctionAttribute))
-                            {
-                                continue;
-                            }
-                            break;
-                        case DatabaseScriptType.SqlStoredProcedureAndTsqlScripts:
-                            if (!(migrateAttr is ExtMgrStoredProcedureAndScriptAttribute))
+                        case DatabaseScriptType.SqlStoredProcedures:
+                            if (!(migrateAttr is ExtMgrStoredProceduresAttribute))
                             {
                                 continue;
                             }

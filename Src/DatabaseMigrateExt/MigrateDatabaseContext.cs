@@ -43,17 +43,17 @@ namespace DatabaseMigrateExt
         public string CurrentDatabaseNamespace => $"{RootNamespace}.{DatabaseKey}";
         public string CurrentRefScriptNamespace => $"{CurrentDatabaseNamespace}._RefScript";
 
-        public string SqlArchitectureRefScriptNamespace
+        public string SqlDataStructureRefScriptNamespace
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[$"mgr:SqlArchitectureRefScriptNamespace"]))
+                if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[$"mgr:SqlDataStructureRefScriptNamespace"]))
                 {
                     return $"{CurrentRefScriptNamespace}.DataAndStructure";
                 }
                 else
                 {
-                    return $"{CurrentRefScriptNamespace}.{ConfigurationManager.AppSettings[$"mgr:SqlArchitectureRefScriptNamespace"].ToString().Trim()}";
+                    return $"{CurrentRefScriptNamespace}.{ConfigurationManager.AppSettings[$"mgr:SqlDataStructureRefScriptNamespace"].ToString().Trim()}";
                 }
             }
         }

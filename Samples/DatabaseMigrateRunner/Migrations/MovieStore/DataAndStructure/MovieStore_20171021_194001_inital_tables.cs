@@ -1,17 +1,15 @@
 ﻿using System;
 using DatabaseMigrateExt;
-using DatabaseMigrateExt.Utils;
-using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    [ExtMgrDataStructure("Hung Vo", 2017, 10, 21, 19, 40, 01)]
-    public class MovieStore_20171021_194001_inital_tables : Migration
+    [ExtMgrDataStructureAndFunctions("Hung Vo", 2017, 10, 21, 19, 40, 01)]
+    public class MovieStore_20171021_194001_inital_tables : ExtDataStructureMigration
     {
         public override void Up()
         {
             // use sql script
-            this.ExecuteSqlStructure("v000001_inital_structure.sql");
+            this.ExecuteDataStructureRefScript("v000001_inital_structure.sql");
 
             // or use fluent migrator syntax
             if (!this.Schema.Schema("dbo").Table("Movie").Exists())

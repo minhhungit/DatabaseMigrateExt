@@ -1,11 +1,10 @@
 ﻿using System;
 using DatabaseMigrateExt;
-using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
-    [ExtMgrDataStructure(2017, 9, 22, 02, 08, 01)]
-    public class InventoryDb_20170922_020801_inital_tables : Migration
+    [ExtMgrDataStructureAndFunctions(2017, 9, 22, 02, 08, 01)]
+    public class InventoryDb_20170922_020801_inital_tables : ExtDataStructureMigration
     {
         public override void Up()
         {

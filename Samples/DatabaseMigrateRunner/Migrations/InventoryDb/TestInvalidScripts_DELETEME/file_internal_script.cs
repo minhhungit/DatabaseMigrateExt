@@ -4,7 +4,7 @@ using FluentMigrator;
 
 namespace DatabaseMigrateRunner.Migrations.InventoryDb
 {
-    [ExtMgrDataStructure("Hung Vo", 2017, 11, 13, 01, 05, 03, false)]
+    [ExtMgrDataStructureAndFunctions("Hung Vo", 2017, 11, 13, 01, 05, 03, false)]
     internal class file_internal_script : Migration
     {
         public override void Up()

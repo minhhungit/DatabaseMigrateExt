@@ -10,18 +10,17 @@ A new way, new rule to work with MSSQL database version use [fluent migrator](ht
 When we use `Fluent Migrator` or even `EF Migration`, it will be very hard to check history of a sql function/stored procedure, 
 DatabaseMigrateExt can help you resolve the problem using ChangeScript/RefScript pattern. 
 
-That mean sql function/ stored procedure will be keeped in each file separately (ref-script) 
-and every times we want to do a change we will create a migration classs with a version number (change-script)
-and link it to ref-script, for example:
+That mean sql function/ stored procedure will be keeped separately in each file (ref-script) 
+and every times we want to change we will create a command (change-script) and point to ref-script, for example:
 - We have a ref-script stored proc `dbo.GetProducts`
 - Migration 01 - update `dbo.GetProducts` and commit
 - Migration 02 - update `dbo.GetProducts` and commit again
 - ...
 By using source control like Git we know the changes history of stored `dbo.GetProducts`
 
-Next problem, using RefScript/ChangeScript pattern means your stored `dbo.GetProducts` is only one file, so what happen if some day we want to re-run all migrations for a new empty database. 
+Next problem, using RefScript/ChangeScript pattern means your stored `dbo.GetProducts` is only one file, so what happen if someday we want to re-run all migrations for a new empty database. 
 Normally this will cause a lot errors because file `dbo.GetProducts` is latest state, every times migrator runs it will apply the latest state of the stored procedure, 
-in above sample, `Migration 01` and `Migration 02` will call one file `dbo.GetProducts`.
+in above sample, `Migration 01` and `Migration 02` will call same file `dbo.GetProducts`.
 There is a high possibility that migratior can not execute your stored procedure because some tables have not created yet.
 
 To hanlde it, we will need to classify type of change-scripts by using `ExtMigration Attributes`, all migrations relate to schema like Create Database, Alter Column, Created Index, Function... should be run 
@@ -63,30 +62,51 @@ Of course, you also need a child folder for that database to store migration scr
 ***ExtMigration Attributes:***
 
 There are 3 attributes:
-- Use `ExtMgrDataStructure` for `structure` or `data` migrations.
-- Use `ExtMgrFunction` for `function` migrations.
-- Use `ExtMgrStoredProcedureAndScript` for `stored procedure` or `t-sql scripts` migrations.
+- Use `[ExtMgrDataStructureAndFunctions]` for marking the migration as a `STRUCTURE`, a`DATA` or a `FUNCTION` type.
+- Use `[ExtMgrStoredProcedures]` for marking the migration as a`STORED PROCEDURE`.
 
 > Note: System will just find migration scripts which used **ExtMigration Attributes** to apply, everything else will be skipped.
 
+For example:
+
+```csharp
+[ExtMgrDataStructureAndFunctions(2017, 9, 22, 02, 08, 01)]
+public class InventoryDb_20170922_020801_inital_tables : ExtDataStructureMigration
+{
+    public override void Up()
+    {
+        // do someting
+    }
+
+    public override void Down()
+    {
+        throw new NotImplementedException();
+    }        
+}
+```
+
 ***Migration structure:***
-You can place migration class in everywhere as long as it is placed under namespace of database.
+You can put migration classes in everywhere in your project as long as it is placed under availabel namespace.
 > For example: **DatabaseMigrateRunner.Migrations.MovieStore**
 
-But, remember that your ref-scripts must be placed fixed in folder @RefScript inside DatabaseKey folder.
-You can change name of children folders like DataAndStructure/Function/Stored like anything you want with these settings:
-- mgr:SqlArchitectureRefScriptNamespace
+Remember that your ref-scripts must be placed fixed in folder @RefScript inside DatabaseKey folder.
+You can change children folders's name like DataAndStructure/Function/Stored like anything you want with these settings:
+- mgr:SqlDataStructureRefScriptNamespace
 - mgr:SqlFunctionRefScriptNamespace
 - mgr:SqlStoredRefScriptNamespace
+- mgr:SqlGeneralScriptRefScriptNamespace
 
 ***Order of migrations:***
 DatabaseMigrateExt will executes migration scripts with bellow order:
 
-- DataStructure (version start at 1000..., ex: 100020171021194001)
-- Function (version start at 2000..., ex: 200020170922083001)
-- StoredProcedureAndScript (version start at 2000..., ex: 300020190908032101)
+- Data, Structure or Function (version start at 1000..., ex: 100020171021194001)
+- Stored Procedure (version start at 2000..., ex: 200020190908032101)
 
-<img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/db-versions.png" />
+| Version | AppliedOn | Description |
+| 100020171021194001 | 2020-03-24 16:42:18.000	| MovieStore_20171021_194001_inital_tables |
+| 100020171022154501| 2020-03-24 16:42:18.000	| MovieStore_20171022_154501_inital_function |
+| 200020170807140103| 2020-03-24 16:42:18.000	| MovieStore_20170807_140103_create_stored |
+| 200020190908032101| 2020-03-24 16:42:18.000	| MovieStore_20190908_032101_exec_script |
 
 ***Ref-Script And Change-Script***
 
@@ -110,8 +130,8 @@ using DatabaseMigrateExt;
 
 namespace DatabaseMigrateRunner.Migrations.MovieStore
 {
-    [ExtMgrDataStructure(2017, 9, 22, 02, 08, 01)]
-    public class SqlStructure_20170921_194001_inital_tables : Migration
+    [ExtMgrDataStructureAndFunctions(2017, 9, 22, 02, 08, 01)]
+    public class SqlStructure_20170921_194001_inital_tables : ExtDataStructureMigration
     {
         public override void Up()
         {
@@ -123,7 +143,7 @@ namespace DatabaseMigrateRunner.Migrations.MovieStore
 ```
 You also can define author on attribute, like this:
 ```csharp
-[ExtMgrDataStructure("Hung Vo", 2017, 9, 22, 02, 08, 01)]
+[ExtMgrDataStructureAndFunctions("Hung Vo", 2017, 9, 22, 02, 08, 01)]
 ```
 
 ### Run
