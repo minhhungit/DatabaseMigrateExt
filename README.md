@@ -1,6 +1,7 @@
 # <img rel="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/develop/Icon/logo.png" src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/develop/wiki/Icon/logo.png" width="32" /> DatabaseMigrateExt <a href="https://www.nuget.org/packages/DatabaseMigrateExt/"><img src="https://img.shields.io/nuget/v/DatabaseMigrateExt.svg?style=flat" /></a> [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1b3c86714594b6894bb9382c3f85f33)](https://www.codacy.com/app/it.minhhung/DatabaseMigrateExt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=minhhungit/DatabaseMigrateExt&amp;utm_campaign=Badge_Grade) [![CodeFactor](https://www.codefactor.io/repository/github/minhhungit/databasemigrateext/badge)](https://www.codefactor.io/repository/github/minhhungit/databasemigrateext)
 
-A new way, new rule to work with MSSQL database version use [fluent migrator](https://github.com/fluentmigrator/fluentmigrator)
+A disciplined way to manage FluentMigration project and trackdisciplined way to  change of stored procedures, sql function...
+
 - [https://minhhungit.github.io/DatabaseMigrateExt](https://minhhungit.github.io/DatabaseMigrateExt)
 
 ### Installation
