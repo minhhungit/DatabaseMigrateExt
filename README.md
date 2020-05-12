@@ -11,15 +11,15 @@ A disciplined way to manage FluentMigration project and track change of stored p
 When we use `Fluent Migrator` or even `EF Migration`, it will be very hard to check history of a sql function/stored procedure, 
 DatabaseMigrateExt can help you resolve the problem using ChangeScript/RefScript pattern. 
 
-That mean sql function/ stored procedure will be keeped separately in each file (ref-script) 
+That means sql function/ stored procedure will be keeped separately in each file (ref-script) 
 and every times we want to change we will create a command (change-script) and point to ref-script, for example:
 - We have a ref-script stored proc `dbo.GetProducts`
 - Migration 01 - update `dbo.GetProducts` and commit
 - Migration 02 - update `dbo.GetProducts` and commit again
 - ...
-By using source control like Git we know the changes history of stored `dbo.GetProducts`
+By using source control like Git we know history of stored `dbo.GetProducts`
 
-Next problem, using RefScript/ChangeScript pattern means your stored `dbo.GetProducts` is only one file, so what happen if someday we want to re-run all migrations for a new empty database. 
+Next, using RefScript/ChangeScript pattern means your stored `dbo.GetProducts` is only one file, so what happen if someday we want to re-run all migrations for a new empty database. 
 Normally this will cause a lot errors because file `dbo.GetProducts` is latest state, every times migrator runs it will apply the latest state of the stored procedure, 
 in above sample, `Migration 01` and `Migration 02` will call same file `dbo.GetProducts`.
 There is a high possibility that migratior can not execute your stored procedure because some tables have not created yet.
