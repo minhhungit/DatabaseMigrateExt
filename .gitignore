@@ -10,3 +10,5 @@ obj
 /Samples/DatabaseMigrateRunner/bin/Debug
 /Samples/DatabaseMigrateRunner/bin/Release
 /Src/DatabaseMigrateExt/bin/Release
+/Samples/DemoLog.Serilog/bin/Debug/netcoreapp3.1
+/Samples/DemoLog.Serilog/bin/Release/netcoreapp3.1
