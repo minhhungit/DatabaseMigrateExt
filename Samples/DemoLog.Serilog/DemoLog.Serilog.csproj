@@ -6,22 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Migrations\MovieStore\@RefScript\@General\v0000001_do_something.sql" />
-    <None Remove="Migrations\MovieStore\@RefScript\DataAndStructure\v000001_inital_structure.sql" />
-    <None Remove="Migrations\MovieStore\@RefScript\Function\dbo.fnRemoveNonAlphaCharacters.sql" />
-    <None Remove="Migrations\MovieStore\@RefScript\Function\dbo.fnSplit.sql" />
-    <None Remove="Migrations\MovieStore\@RefScript\Stored\dbo.GetMovieById.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\MovieStore\@RefScript\@General\v0000001_do_something.sql" />
-    <EmbeddedResource Include="Migrations\MovieStore\@RefScript\DataAndStructure\v000001_inital_structure.sql" />
-    <EmbeddedResource Include="Migrations\MovieStore\@RefScript\Function\dbo.fnRemoveNonAlphaCharacters.sql" />
-    <EmbeddedResource Include="Migrations\MovieStore\@RefScript\Function\dbo.fnSplit.sql" />
-    <EmbeddedResource Include="Migrations\MovieStore\@RefScript\Stored\dbo.GetMovieById.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
     <PackageReference Include="Common.Logging.Serilog" Version="4.4.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
