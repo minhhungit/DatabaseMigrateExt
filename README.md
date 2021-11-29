@@ -62,7 +62,7 @@ Of course, you also need a child folder for that database to store migration scr
 ### Migration Scripts
 ***ExtMigration Attributes:***
 
-There are 3 attributes:
+There are 2 attributes:
 - Use `[ExtMgrDataStructureAndFunctions]` for marking the migration as a `STRUCTURE`, a`DATA` or a `FUNCTION` type.
 - Use `[ExtMgrStoredProcedures]` for marking the migration as a`STORED PROCEDURE`.
 
