@@ -115,7 +115,7 @@ DatabaseMigrateExt will executes migration scripts with bellow order:
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/ref-and-change-script.png" />
 
 ### Note & Tips:
-- Your sql scripts (can be strucuture/stored/funtion...) must be marked as 'Embedded Resource' - see bellow image :point_down:)
+- Your sql scripts (can be strucuture/stored/funtion...) must be marked as 'Embedded Resource' - you normally just do this one time, after that just need to copy old file and rename - see bellow image :point_down:)
 - DatabaseMigrateExt will find and show all invaild migration scripts when application starts, you should check them
 - DatabaseMigrateExt will not execute invalid scripts
 
