@@ -121,6 +121,9 @@ DatabaseMigrateExt will executes migration scripts with bellow order:
 
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/embedded_resource.png" />
 
+## Credit
+The idea of change script/ref script is from [Nghia Nguyen](https://github.com/nghianghesi) aka my boss 
+
 ### Demo
 <img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/demo-result.png" />
 
@@ -163,10 +166,6 @@ static void Main(string[] args)
     Console.ReadKey();
 }
 ```
-
-
-### Credit
-The idea of change script/ref script is from [Nghia Nguyen](https://github.com/nghianghesi) aka my boss 
 
 ## Thanks
 <a href="https://www.jetbrains.com/"><img src="https://raw.githubusercontent.com/minhhungit/DatabaseMigrateExt/master/wiki/Images/jetbrains-128x128.png" /></a>
